@@ -1,11 +1,17 @@
 "use strict";
-let salaries = {
-    John: 100,
-    Ann: 160,
-    Pete: 130
+let menu = {
+    width: 200,
+    height: 300,
+    title: "My menu"
 }
-let sum = 0;
-for (let money in salaries){
-    sum += salaries[money];
+
+multiplyNumeric(menu);
+
+function  multiplyNumeric(menu) {
+    for (let key in menu){
+        if (typeof menu[key]  == 'number' ){
+            menu[key] = menu[key]*2;
+        }
+    }
 }
-alert(sum);
+console.log(menu);
