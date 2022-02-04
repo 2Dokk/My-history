@@ -1,17 +1,9 @@
 "use strict";
-let menu = {
-    width: 200,
-    height: 300,
-    title: "My menu"
-}
-
-multiplyNumeric(menu);
-
-function  multiplyNumeric(menu) {
-    for (let key in menu){
-        if (typeof menu[key]  == 'number' ){
-            menu[key] = menu[key]*2;
-        }
-    }
-}
-console.log(menu);
+let user = {
+    name: 'John',
+    age: 30
+};
+user.sayHi = function() {
+    alert('안녕하세요');
+};
+user.sayHi();
