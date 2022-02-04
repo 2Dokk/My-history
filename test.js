@@ -1,17 +1,12 @@
 "use strict";
-function Calculator() {
+function Accumulator(startingValue) {
+    this.value = startingValue,
     this.read = function() {
-        this.Num1 = +prompt('First Number',0);
-        this.Num2 = +prompt('Second Number',0);
-    }
-    this.sum = function() {
-        return this.Num1 + this.Num2;
-    }
-    this.mul = function() {
-        return this.Num1 * this.Num2;
-    }
+        return this.value += +prompt('더할 값을 입력해주십시오',0);
+    };
 };
-let calculator = new Calculator();
-calculator.read();
-alert('Sum=' + calculator.sum());
-alert('Mul=' + calculator.mul());
+let accumulator = new Accumulator(1);
+accumulator.read();
+accumulator.read();
+
+alert(accumulator.value);
