@@ -1,10 +1,8 @@
 "use strict";
-let str = "stringify";
+let str = "As sly as a fox, as strong as an ox";
+let target = "as";
 
-// 동일한 부분 문자열을 반환합니다.
-alert( str.substring(2, 6) ); // "ring"
-alert( str.substring(6, 2) ); // "ring"
-
-// slice를 사용하면 결과가 다릅니다.
-alert( str.slice(2, 6) ); // "ring" (같음)
-alert( str.slice(6, 2) ); // "" (빈 문자열)
+let pos = -1;
+while ((pos = str.indexOf(target, pos + 1)) != -1) {
+  alert( `위치: ${pos}` );
+}
