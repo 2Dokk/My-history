@@ -1,6 +1,6 @@
 "use strict";
-let str = "Widget with id";
-
-if (str.indexOf("Widget") != -1) {
-    alert("찾았다!"); // 의도한 대로 동작합니다.
+function ucFirst(str){
+    if (!str) return str;
+    return str[0].toUpperCase() + str.slice(1);
 }
+alert( ucFirst("john"));
