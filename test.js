@@ -1,7 +1,9 @@
 "use strict";
-function checkSpam(str){
-    str = str.toUpperCase()
-    return (str.includes('VIAGRA') || str.includes('XXX'));
+function truncate(str,maxlength){
+    if (str.length > maxlength) {
+        return str.substr(0,maxlength-1)+'...';
+    }
+    return str;
 }
-alert(checkSpam('free xxxxx'));
-console.log(checkSpam('free xxxxx'));
+alert(truncate("What I'd like to tell on this topic is:", 20));
+alert(truncate("Hi everyone!", 20));
