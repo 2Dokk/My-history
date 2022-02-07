@@ -1,8 +1,6 @@
 "use strict";
-let str = "As sly as a fox, as strong as an ox";
-let target = "as";
+let str = "Widget with id";
 
-let pos = -1;
-while ((pos = str.indexOf(target, pos + 1)) != -1) {
-  alert( `위치: ${pos}` );
+if (str.indexOf("Widget") != -1) {
+    alert("찾았다!"); // 의도한 대로 동작합니다.
 }
