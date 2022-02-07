@@ -1,6 +1,7 @@
 "use strict";
-function ucFirst(str){
-    if (!str) return str;
-    return str[0].toUpperCase() + str.slice(1);
+function checkSpam(str){
+    str = str.toUpperCase()
+    return (str.includes('VIAGRA') || str.includes('XXX'));
 }
-alert( ucFirst("john"));
+alert(checkSpam('free xxxxx'));
+console.log(checkSpam('free xxxxx'));
