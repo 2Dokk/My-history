@@ -1,9 +1,7 @@
 "use strict";
-function truncate(str,maxlength){
-    if (str.length > maxlength) {
-        return str.substr(0,maxlength-1)+'...';
-    }
-    return str;
-}
-alert(truncate("What I'd like to tell on this topic is:", 20));
-alert(truncate("Hi everyone!", 20));
+let arr = [1,2,3,4,5];
+arr.length = 2;
+alert(arr);
+
+arr.length = 5;
+alert(arr[3]);
