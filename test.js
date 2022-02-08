@@ -1,14 +1,20 @@
 "use strict";
-function camelize(str) {
-    return str
-      .split('-') // splits 'my-long-word' into array ['my', 'long', 'word']
-      .map(
-        // capitalizes first letters of all array items except the first one
-        // converts ['my', 'long', 'word'] into ['my', 'Long', 'Word']
-        (word, index) => index == 0 ? word : word[0].toUpperCase() + word.slice(1)
-      )
-      .join(''); // joins ['my', 'Long', 'Word'] into 'myLongWord'
+function filterRangeInPlace(arr, a, b) {
+
+    for (let i = 0; i < arr.length; i++) {
+      let val = arr[i];
+  
+      // 범위 밖의 요소를 제거함
+      if (val < a || val > b) {
+        arr.splice(i, 1);
+        i--;
+      }
+    }
+  
   }
-camelize("background-color");
-camelize("list-style-image");
-camelize("-webkit-transition");
+  
+  let arr = [5, 3, 8, 1];
+  
+  filterRangeInPlace(arr, 1, 4); // 1과 4 사이에 있지 않은 요소는 모두 제거함
+  
+  alert( arr ); // [3, 1]
