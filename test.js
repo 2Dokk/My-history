@@ -1,12 +1,20 @@
 "use strict";
-function getMaxSubSum(arr){
-    let dptable = [[0]*arr.length];
-    dptable[0] = arr[0];
-    for (let i = 1; i<arr.length;i++){
-        dptable[i] = Math.max(0,dptable[i-1]) + arr[i];
-    
-    return Math.max(dptable);
+function getMaxSubSum(arr) {
+    let maxSum = 0;
+    let partialSum = 0;
+  
+    for (let item of arr) { // 배열의 각 요소를
+      partialSum += item; // partialSum에 더합니다.
+      maxSum = Math.max(maxSum, partialSum); // 최대값을 기억해 놓습니다.
+      if (partialSum < 0) partialSum = 0; // 음수가 되면 0을 대입합니다.
     }
-}
-console.log(alert(getMaxSubSum([-1, 2, 3, -9])));
-alert(getMaxSubSum([-1, 2, 3, -9]));
+  
+    return maxSum;
+  }
+  
+  alert( getMaxSubSum([-1, 2, 3, -9]) ); // 5
+  alert( getMaxSubSum([-1, 2, 3, -9, 11]) ); // 11
+  alert( getMaxSubSum([-2, -1, 1, 2]) ); // 3
+  alert( getMaxSubSum([100, -9, 2, -3, 5]) ); // 100
+  alert( getMaxSubSum([1, 2, 3]) ); // 6
+  alert( getMaxSubSum([-1, -2, -3]) ); // 0
