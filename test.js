@@ -1,17 +1,12 @@
 "use strict";
-function sumInput(){
-    let numbers = [];
-    while (true){
-        let value = prompt('숫자를 입력해주세요',0);
-        
-        if (value === ''|| value === null || !isFinite(value)) break;
-        
-        numbers.push(+value);
+function getMaxSubSum(arr){
+    let dptable = [[0]*arr.length];
+    dptable[0] = arr[0];
+    for (let i = 1; i<arr.length;i++){
+        dptable[i] = Math.max(0,dptable[i-1]) + arr[i];
+    
+    return Math.max(dptable);
     }
-    let sum = 0;
-    for (let number of numbers)  {
-        sum += number;
-    }
-    return sum;
 }
-alert(sumInput());
+console.log(alert(getMaxSubSum([-1, 2, 3, -9])));
+alert(getMaxSubSum([-1, 2, 3, -9]));
