@@ -1,14 +1,12 @@
 "use strict";
-let arr = ["HTML", "JavaScript", "CSS"];
+let john = { name: "John", age: 25 };
+let pete = { name: "Pete", age: 30 };
+let mary = { name: "Mary", age: 28 };
 
-function copySorted(arr){
-    let copyOrigin = arr.slice()
-    copyOrigin.sort();
-    return copyOrigin;
-}
+let users = [ john, pete, mary ];
 
-let sorted = copySorted(arr);
-console.log(copySorted(arr));
 
-alert( sorted ); // CSS, HTML, JavaScript
-alert( arr ); // HTML, JavaScript, CSS (no changes)
+let names = users.map(item => item.name);
+
+
+alert( names ); // John, Pete, Mary
