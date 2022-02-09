@@ -1,14 +1,10 @@
 "use strict";
-let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+let map = new Map();
 
-alert( aclean(arr) ); // "nap,teachers,ear"나 "PAN,cheaters,era"이 출력되어야 합니다.
+map.set("name", "John");
 
-function aclean(arr){
-    let map = new Map();
-    
-    for (let word of arr){
-        let sorted = word.toLowerCase().split('').sort().join('');
-        map.set(sorted, word);
-    }
-    return Array.from(map.values());
-}
+let keys = Array.from(map.keys());
+
+// Error: keys.push is not a function
+keys.push("more");
+alert(keys);
