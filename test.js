@@ -1,15 +1,14 @@
 "use strict";
-function unique(arr) {
-    /* 제출 답안 */
-    let result = new Set()
-    for (let item of arr){
-        result.add(item);
+let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+
+alert( aclean(arr) ); // "nap,teachers,ear"나 "PAN,cheaters,era"이 출력되어야 합니다.
+
+function aclean(arr){
+    let map = new Map();
+    
+    for (let word of arr){
+        let sorted = word.toLowerCase().split('').sort().join('');
+        map.set(sorted, word);
     }
-    return Array.from(result);
-  }
-  
-  let values = ["Hare", "Krishna", "Hare", "Krishna",
-    "Krishna", "Krishna", "Hare", "Hare", ":-O"
-  ];
-  
-  alert( unique(values) ); // 얼럿창엔 `Hare, Krishna, :-O`만 출력되어야 합니다.
+    return Array.from(map.values());
+}
