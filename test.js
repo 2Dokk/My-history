@@ -1,14 +1,10 @@
 "use strict";
-let options = {
-    title: "Menu",
-    height: 200,
-    width: 100
-  };
-  
-  // title = 이름이 title인 프로퍼티
-  // rest = 나머지 프로퍼티들
-  let {title, ...rest} = options;
-  
-  // title엔 "Menu", rest엔 {height: 200, width: 100}이 할당됩니다.
-  alert(rest.height);  // 200
-  alert(rest.width);   // 100
+let user = { name: "John", years: 30 };
+
+let {name,years : age,isAdmin = false} = user;
+// 할당 연산자 좌측에 답안을 작성하시면 되겠죠?
+// ... = user
+
+alert( name ); // John
+alert( age ); // 30
+alert( isAdmin ); // false
