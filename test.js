@@ -1,5 +1,8 @@
 "use strict";
-// 두 번째 요소는 필요하지 않음
-let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+let user = new Map();
+user.set("name", "John");
+user.set("age", "30");
 
-alert( title ); // Consul
+for (let [key, value] of user) {
+  alert(`${key}:${value}`); // name:John, then age:30
+}
