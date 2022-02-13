@@ -1,29 +1,10 @@
 "use strict";
-function diffSubtract(date1, date2) {
-    return date2 - date1;
+let date = new Date(2019, 11, 5);  // 2019년 11월 5일
+console.log(getLocalDay(date));       // 금요일이므로, 5가 출력되어야 함
+function getLocalDay(date){
+  let day = date.getDay();
+  if (day == 0){
+    day = 7;
   }
-  
-  function diffGetTime(date1, date2) {
-    return date2.getTime() - date1.getTime();
-  }
-  
-  function bench(f) {
-    let date1 = new Date(0);
-    let date2 = new Date();
-  
-    let start = Date.now();
-    for (let i = 0; i < 100000; i++) f(date1, date2);
-    return Date.now() - start;
-  }
-  
-  let time1 = 0;
-  let time2 = 0;
-  
-  // 함수 bench를 각 함수(diffSubtract, diffGetTime)별로 10번씩 돌립니다.
-  for (let i = 0; i < 10; i++) {
-    time1 += bench(diffSubtract);
-    time2 += bench(diffGetTime);
-  }
-  
-  alert( 'diffSubtract에 소모된 시간: ' + time1 );
-  alert( 'diffGetTime에 소모된 시간: ' + time2 );
+  return day;
+}
