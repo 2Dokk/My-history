@@ -1,17 +1,9 @@
 "use strict";
-let room = {
-  number: 23
-};
+let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
 
-let meetup = {
-  title: "Conference",
-  participants: [{name: "John"}, {name: "Alice"}],
-  place: room // meetup은 room을 참조합니다
-};
+let meetup = JSON.parse(str, function(key, value) {
+  if (key == 'date') return new Date(value);
+  return value;
+});
 
-room.occupiedBy = meetup; // room은 meetup을 참조합니다
-
-alert( JSON.stringify(meetup, function replacer(key, value) {
-  alert(`${key}: ${value}`);
-  return (key == 'occupiedBy') ? undefined : value;
-}));
+alert( meetup.date.getDate() ); // 이제 제대로 동작하네요!
