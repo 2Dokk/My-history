@@ -1,9 +1,8 @@
 "use strict";
-let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
+let user = {
+  name: "John Smith",
+  age: 35
+};
 
-let meetup = JSON.parse(str, function(key, value) {
-  if (key == 'date') return new Date(value);
-  return value;
-});
-
-alert( meetup.date.getDate() ); // 이제 제대로 동작하네요!
+let user2 = JSON.parse(JSON.stringify(user));
+console.log(user2);
