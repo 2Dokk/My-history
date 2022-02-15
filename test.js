@@ -1,8 +1,26 @@
 "use strict";
-let user = {
-  name: "John Smith",
-  age: 35
+
+let room = {
+  number: 23
 };
 
-let user2 = JSON.parse(JSON.stringify(user));
-console.log(user2);
+let meetup = {
+  title: "Conference",
+  occupiedBy: [{name: "John"}, {name: "Alice"}],
+  place: room
+};
+
+room.occupiedBy = meetup;
+meetup.self = meetup;
+
+alert( JSON.stringify(meetup, function replacer(key, value) {
+  return (key != "" && value == meetup) ? undefined : value;
+}));
+
+/*
+{
+  "title":"Conference",
+  "occupiedBy":[{"name":"John"},{"name":"Alice"}],
+  "place":{"number":23}
+}
+*/
