@@ -14,11 +14,12 @@
             a{
                 text-decoration: none;
             }
-            ol{
+            #grid ol{
                 border-right: 1px solid gray;
                 width: 100px;
                 margin: 0;
                 padding: 20px;
+                padding-left: 33px;
             }
             body{
                 margin: 0;
@@ -27,18 +28,24 @@
                 display:grid;
                 grid-template-columns: 150px 1fr;
             }
+            .saw{
+                color: red;
+            }
+            #article{
+                padding-left: 25px;
+            }
         </style>
     </head>
 
     <body>
-        <h1><a href="index.html">WEB</a></h1>
+        <h1><a href="index.html" style="color:black">WEB</a></h1>
         <div id="grid">
             <ol>
                 <li><a href="1.html" > HTML </a></li>
-                <li><a href="2.html" > CSS </a></li>
+                <li><a href="2.html" class="saw"> CSS </a></li>
                 <li><a href="3.html"> Javascript </a></li>
             </ol>
-            <div>
+            <div id="article">
                 <h2>CSS란 무엇인가?</h2>
                 <p>
                 <a href="https://en.wikipedia.org/wiki/CSS" target="_blank">Cascading Style Sheets (CSS)</a> is a style sheet language used for
