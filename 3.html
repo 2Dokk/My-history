@@ -9,14 +9,15 @@
     <body>
         <h1><a href="index.html" id="WEB" style="color:black">WEB</a></h1>
         <input id="night_day" type="button" value="night" onclick="
+        let docBody = document.querySelector('body');
         if (this.value === 'night'){
-            document.querySelector('body').style.backgroundColor = 'black';
-            document.querySelector('body').style.color = 'white';
+            docBody.style.backgroundColor = 'black';
+            docBody.style.color = 'white';
             document.querySelector('#WEB').style.color = 'white';
             document.querySelector('#night_day').value = 'day';
-        } else{
-            document.querySelector('body').style.backgroundColor = 'white';
-            document.querySelector('body').style.color = 'black';
+        } else if(this.value==='day'){
+            docBody.style.backgroundColor = 'white';
+            docBody.style.color = 'black';
             document.querySelector('#WEB').style.color = 'black';
             document.querySelector('#night_day').value = 'night';
         }
