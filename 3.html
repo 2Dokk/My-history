@@ -15,11 +15,27 @@
             docBody.style.color = 'white';
             document.querySelector('#WEB').style.color = 'white';
             document.querySelector('#night_day').value = 'day';
+            let alist = document.querySelectorAll('a');
+            let i = 0
+            while (i < alist.length){
+                alist[i].style.color = 'powderblue';
+                i += 1
+            }
+            
         } else if(this.value==='day'){
             docBody.style.backgroundColor = 'white';
             docBody.style.color = 'black';
             document.querySelector('#WEB').style.color = 'black';
             document.querySelector('#night_day').value = 'night';
+            let alist = document.querySelectorAll('a');
+            let i = 0
+            
+            while (i < alist.length){
+                alist[i].style.color = 'blue';
+                
+                i += 1
+            }
+            
         }
             ">
         <div id="grid">
@@ -31,7 +47,7 @@
             <div id="article">
                 <h2>Javascript란 무엇인가?</h2>
                 <p>
-                <a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> (/ˈdʒɑːvəskrɪpt/),[10] often abbreviated JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS.[11] Over 97% of websites use JavaScript on the client side for web page behavior,[12] often incorporating third-party libraries.[13] All major web browsers have a dedicated JavaScript engine to execute the code on users' devices.
+                JavaScript(/ˈdʒɑːvəskrɪpt/),[10] often abbreviated JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS.[11] Over 97% of websites use JavaScript on the client side for web page behavior,[12] often incorporating third-party libraries.[13] All major web browsers have a dedicated JavaScript engine to execute the code on users' devices.
                 </p>
             </div>
         </div>
