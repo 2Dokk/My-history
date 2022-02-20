@@ -4,10 +4,13 @@
         <title>WEB-CSS</title>
         <meta charset = 'UTF-8'>
         <link rel="stylesheet" href="style.css"/>
+        <script src="color.js"></script>
     </head>
 
     <body>
-        <h1><a href="index.html" style="color:black">WEB</a></h1>
+        <h1><a href="index.html" id="WEB" style="color:black">WEB</a></h1>
+        <input id="night_day" type="button" value="night" onclick="
+        nightDayhandler(this)">
         <div id="grid">
             <ol>
                 <li><a href="1.html" > HTML </a></li>
