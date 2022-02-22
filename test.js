@@ -1,14 +1,21 @@
 "use strict";
-function makeCounter() {
-  let count = 0;
+function sum(a) {
 
-  function counter() {
-    return count++;
+  let currentSum = a;
+
+  function f(b) {
+    currentSum += b;
+    return f;
   }
 
-  counter.set = value => count = value;
+  f.toString = function() {
+    return currentSum;
+  };
 
-  counter.decrease = () => count--;
-
-  return counter;
+  return f;
 }
+
+alert( sum(1)(2) ); // 3
+alert( sum(5)(-1)(2) ); // 6
+alert( sum(6)(-1)(-2)(-3) ); // 0
+alert( sum(0)(1)(2)(3)(4)(5) ); // 15
