@@ -1,17 +1,9 @@
 "use strict";
-function printNumbers(from, to) {
-  let current = from;
+let i = 0;
 
-  function go() {
-    alert(current);
-    if (current == to) {
-      clearInterval(timerId);
-    }
-    current++;
-  }
+setTimeout(() => alert(i), 100); // ?
 
-  go();
-  let timerId = setInterval(go, 1000);
+// 아래 반복문을 다 도는 데 100ms 이상의 시간이 걸린다고 가정합시다.
+for(let j = 0; j < 100000000; j++) {
+  i++;
 }
-
-printNumbers(5, 10);
