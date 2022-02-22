@@ -1,15 +1,17 @@
 "use strict";
-let user = {
+function makeCounter() {
 
-  sayHi() {
-    // ...
-  },
+  // let count = 0 대신 아래 메서드(프로퍼티)를 사용함
 
-  sayBye: function() {
-    // ...
-  }
+  function counter() {
+    return counter.count++;
+  };
 
+  counter.count = 0;
+
+  return counter;
 }
 
-alert(user.sayHi.name); // sayHi
-alert(user.sayBye.name); // sayBye
+let counter = makeCounter();
+alert( counter() ); // 0
+alert( counter() ); // 1
