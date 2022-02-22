@@ -1,15 +1,17 @@
 "use strict";
-function printNumber(from, to){
+function printNumbers(from, to) {
   let current = from;
-  let timeId = setTimeout(function run(){
-    console.log(from);
-    if (from == to){
-      clearTimeout(timeId);
-    } else{
-      setTimeout(run,1000);
+
+  function go() {
+    alert(current);
+    if (current == to) {
+      clearInterval(timerId);
     }
-    current++
-  }, 1000);
+    current++;
+  }
+
+  go();
+  let timerId = setInterval(go, 1000);
 }
 
-printNumber(5,10);
+printNumbers(5, 10);
