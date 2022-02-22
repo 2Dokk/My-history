@@ -1,21 +1,12 @@
 "use strict";
-function makeArmy() {
-  let shooters = [];
+// 모든 스크립트에서 현재 사용자(current user)에 접근할 수 있게 이를 전역 객체에 추가함
+window.currentUser = {
+  name: "John"
+};
 
-  let i = 0;
-  while (i < 10) {
-    let shooter = function() { // shooter 함수
-      alert( i ); // 몇 번째 shooter인지 출력해줘야 함
-    };
-    shooters.push(shooter);
-    i++;
-  }
+// 아래와 같은 방법으로 모든 스크립트에서 currentUser에 접근할 수 있음
+alert(currentUser.name);  // John
 
-  return shooters;
-}
-
-let army = makeArmy();
-
-army[0](); // 0번째 shooter가 10을 출력함
-army[5](); // 5번째 shooter 역시 10을 출력함
-// 모든 shooter가 자신의 번호 대신 10을 출력하고 있음
+// 지역 변수 'currentUser'가 있다면
+// 지역 변수와 충돌 없이 전역 객체 window에서 이를 명시적으로 가져올 수 있음
+alert(window.currentUser.name); // John
