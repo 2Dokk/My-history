@@ -1,13 +1,11 @@
 "use strict";
 function delay(f, ms) {
 
-    return function() {
-      setTimeout(() => f.apply(this, arguments), ms);
+    return function(...args) {
+      let savedThis = this; // store this into an intermediate variable
+      setTimeout(function() {
+        f.apply(savedThis, args); // use it here
+      }, ms);
     };
   
   }
-  
-  let f1000 = delay(alert, 1000);
-  
-  f1000("test"); // shows "test" after 1000ms
-  
