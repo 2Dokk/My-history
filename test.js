@@ -12,6 +12,5 @@ function f(x) {
   function delay(f,ms){
       let timerId = setTimeout(f,ms);
 
-    
       return f;
-}
+    }
