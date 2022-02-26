@@ -1,9 +1,6 @@
 "use strict";
-let user = {
-    firstName: "John",
-    sayHi() {
-      alert(`Hello, ${this.firstName}!`);
+for (let key in user) {
+    if (typeof user[key] == 'function') {
+      user[key] = user[key].bind(user);
     }
-  };
-  
-  setTimeout(user.sayHi, 1000); // Hello, undefined!
+  }
