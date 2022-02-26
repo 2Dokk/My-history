@@ -1,16 +1,13 @@
 "use strict";
-function askPassword(ok, fail) {
-    let password = prompt("비밀번호를 입력해주세요.", '');
-    if (password == "rockstar") ok();
-    else fail();
-  }
+let group = {
+    title: "1모둠",
+    students: ["보라", "호진", "지민"],
   
-  let user = {
-    name: 'John',
-  
-    login(result) {
-      alert( this.name + (result ? ' 로그인 성공' : ' 로그인 실패') );
+    showList() {
+      this.students.forEach(
+        student => alert(this.title + ': ' + student)
+      );
     }
   };
   
-  askPassword(user.login.bind(user,true),user.login(user,false)); // ?
+  group.showList();
