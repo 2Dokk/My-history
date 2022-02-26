@@ -1,21 +1,16 @@
 "use strict";
 function askPassword(ok, fail) {
     let password = prompt("비밀번호를 입력해주세요.", '');
-    if (password == "rockstar") ok.bind(user)();
-    else fail.bind(user)();
+    if (password == "rockstar") ok();
+    else fail();
   }
   
   let user = {
     name: 'John',
   
-    loginOk() {
-      alert(`${this.name}님이 로그인하였습니다.`);
-    },
-  
-    loginFail() {
-      alert(`${this.name}님이 로그인에 실패하였습니다.`);
-    },
-  
+    login(result) {
+      alert( this.name + (result ? ' 로그인 성공' : ' 로그인 실패') );
+    }
   };
   
-  askPassword(user.loginOk, user.loginFail);
+  askPassword(user.login.bind(user,true),user.login(user,false)); // ?
