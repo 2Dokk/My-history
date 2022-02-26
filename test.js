@@ -1,8 +1,8 @@
 "use strict";
 function askPassword(ok, fail) {
     let password = prompt("비밀번호를 입력해주세요.", '');
-    if (password == "rockstar") ok();
-    else fail();
+    if (password == "rockstar") ok.bind(user)();
+    else fail.bind(user)();
   }
   
   let user = {
