@@ -8,8 +8,12 @@ let animal = {
     __proto__: animal
   };
   
-  // Object.keys는 객체 자신의 키만 반환합니다.
-  alert(Object.keys(rabbit)); // jumps
+  for(let prop in rabbit) {
+    let isOwn = rabbit.hasOwnProperty(prop);
   
-  // for..in은 객체 자신의 키와 상속 프로퍼티의 키 모두를 순회합니다.
-  for(let prop in rabbit) alert(prop); // jumps, eats
+    if (isOwn) {
+      alert(`객체 자신의 프로퍼티: ${prop}`); // 객체 자신의 프로퍼티: jumps
+    } else {
+      alert(`상속 프로퍼티: ${prop}`); // 상속 프로퍼티: eats
+    }
+  }
