@@ -1,9 +1,6 @@
 "use strict";
 let animal = {
-    eats: true,
-    walk() {
-      alert("동물이 걷습니다.");
-    }
+    eats: true
   };
   
   let rabbit = {
@@ -11,11 +8,8 @@ let animal = {
     __proto__: animal
   };
   
-  let longEar = {
-    earLength: 10,
-    __proto__: rabbit
-  };
+  // Object.keys는 객체 자신의 키만 반환합니다.
+  alert(Object.keys(rabbit)); // jumps
   
-  // 메서드 walk는 프로토타입 체인을 통해 상속받았습니다.
-  longEar.walk(); // 동물이 걷습니다.
-  alert(longEar.jumps); // true (rabbit에서 상속받음)
+  // for..in은 객체 자신의 키와 상속 프로퍼티의 키 모두를 순회합니다.
+  for(let prop in rabbit) alert(prop); // jumps, eats
