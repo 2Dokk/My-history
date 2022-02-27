@@ -1,19 +1,18 @@
 "use strict";
 let animal = {
-    eats: true
+    jumps: null
   };
-  
   let rabbit = {
-    jumps: true,
-    __proto__: animal
+    __proto__: animal,
+    jumps: true
   };
   
-  for(let prop in rabbit) {
-    let isOwn = rabbit.hasOwnProperty(prop);
+  alert( rabbit.jumps ); // ? (1)
   
-    if (isOwn) {
-      alert(`객체 자신의 프로퍼티: ${prop}`); // 객체 자신의 프로퍼티: jumps
-    } else {
-      alert(`상속 프로퍼티: ${prop}`); // 상속 프로퍼티: eats
-    }
-  }
+  delete rabbit.jumps;
+  
+  alert( rabbit.jumps ); // ? (2)
+  
+  delete animal.jumps;
+  
+  alert( rabbit.jumps ); // ? (3)
