@@ -1,10 +1,14 @@
 "use strict";
 Function.prototype.defer = function(ms) {
-    setTimeout(this, ms);
-};
+    let f = this;
+    return function(...args) {
+      setTimeout(() => f.apply(this, args), ms);
+    }
+  };
   
-function f() {
-    alert("Hello!");
-}
+  // 확인해 보세요.
+  function f(a, b) {
+    alert( a + b );
+  }
   
-f.defer(1000); // 1초 후 "Hello!" 출력
+  f.defer(1000)(1, 2); // 1초 후 3 출력
