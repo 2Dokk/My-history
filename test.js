@@ -5,5 +5,6 @@ Rabbit.prototype = {
 };
 
 let rabbit = new Rabbit();
+Rabbit.prototype.eats = false;
 
 alert( rabbit.eats ); // true
