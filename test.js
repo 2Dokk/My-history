@@ -1,13 +1,6 @@
 "use strict";
-let animal = {
-    eats: true
-};
+function Rabbit() {}
 
-function Rabbit(name){
-    this.name = name;
-}
-
-Rabbit.prototype = animal
-
-let rabbit = new Rabbit("흰토끼");
-alert(rabbit.eats);
+/* 디폴트 prototype
+Rabbit.prototype = { constructor: Rabbit };
+*/
