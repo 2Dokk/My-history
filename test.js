@@ -1,6 +1,9 @@
 "use strict";
 function Rabbit() {}
+Rabbit.prototype = {
+  eats: true
+};
 
-/* 디폴트 prototype
-Rabbit.prototype = { constructor: Rabbit };
-*/
+let rabbit = new Rabbit();
+
+alert( rabbit.eats ); // true
