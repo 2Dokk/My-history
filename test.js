@@ -1,6 +1,10 @@
 "use strict";
-function objConst(){
-    alert('!');
+Function.prototype.defer = function(ms) {
+    setTimeout(this, ms);
+};
+  
+function f() {
+    alert("Hello!");
 }
-let obj = new objConst();
-let obj2 = new obj.constructor();
+  
+f.defer(1000); // 1초 후 "Hello!" 출력
