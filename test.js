@@ -1,10 +1,2 @@
 "use strict";
-function Rabbit() {}
-Rabbit.prototype = {
-  eats: true
-};
-
-let rabbit = new Rabbit();
-Rabbit.prototype.eats = false;
-
-alert( rabbit.eats ); // truek
+let obj2 = new obj.constructor();
