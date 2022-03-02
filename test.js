@@ -15,3 +15,5 @@ class Animal {
 }
 
 let animal = new Animal("동물");
+animal.run(130);
+animal.stop();
