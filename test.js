@@ -1,14 +1,26 @@
 "use strict";
-function makeClass(phrase) {
-  // 클래스를 선언하고 이를 반환함
-  return class {
-    sayHi() {
-      alert(phrase);
-    };
-  };
+class User {
+
+  constructor(name) {
+    // setter를 활성화합니다.
+    this.name = name;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  set name(value) {
+    if (value.length < 4) {
+      alert("이름이 너무 짧습니다.");
+      return;
+    }
+    this._name = value;
+  }
+
 }
 
-// 새로운 클래스를 만듦
-let User = makeClass("안녕하세요.");
+let user = new User("보라");
+alert(user.name); // 보라
 
-new User().sayHi(); // 안녕하세요.
+user = new User(""); // 이름이 너무 짧습니다.
