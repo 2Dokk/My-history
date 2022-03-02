@@ -1,17 +1,19 @@
 "use strict";
-class User {
-    constructor(name) { this.name = name; }
-    sayHi() { alert(this.name); }
+// class User와 동일한 기능을 하는 순수 함수를 만들어보겠습니다.
+
+// 1. 생성자 함수를 만듭니다.
+function User(name) {
+    this.name = name;
   }
+  // 모든 함수의 프로토타입은 'constructor' 프로퍼티를 기본으로 갖고 있기 때문에
+  // constructor 프로퍼티를 명시적으로 만들 필요가 없습니다.
   
-  // 클래스는 함수입니다.
-  alert(typeof User); // function
+  // 2. prototype에 메서드를 추가합니다.
+  User.sayHi = function() {
+    alert(this.name);
+  };
   
-  // 정확히는 생성자 메서드와 동일합니다.
-  alert(User === User.prototype.constructor); // true
-  
-  // 클래스 내부에서 정의한 메서드는 User.prototype에 저장됩니다.
-  alert(User.prototype.sayHi); // alert(this.name);
-  
-  // 현재 프로토타입에는 메서드가 두 개입니다.
-  alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
+  // 사용법:
+  let user = new User("John");
+  User.sayHi();
+  user.sayHi();
