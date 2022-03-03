@@ -17,6 +17,6 @@ let articles = [
   new Article("JavaScript", new Date(2019, 11, 1))
 ];
 
-articles.sort(Article.compare);
+articles.sort((A,B)=> B-A);
 
 alert( articles[0].title ); // CSS
