@@ -1,11 +1,10 @@
 "use strict";
-class Rabbit extends Animal {
-  hide() {
-    alert(`${this.name} 이/가 숨었습니다!`);
+function f(phrase) {
+  return class {
+    sayHi() { alert(phrase) }
   }
 }
 
-let rabbit = new Rabbit("흰 토끼");
+class User extends f("Hello") {}
 
-rabbit.run(5); // 흰 토끼 은/는 속도 5로 달립니다.
-rabbit.hide(); // 흰 토끼 이/가 숨었습니다!
+new User().sayHi(); // Hello
