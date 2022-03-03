@@ -1,26 +1,28 @@
 "use strict";
 let animal = {
-  name: "동물",
-  eat() {         // animal.eat.[[HomeObject]] == animal
-    alert(`${this.name} 이/가 먹이를 먹습니다.`);
+  sayHi() {
+    console.log(`나는 동물입니다.`);
   }
 };
 
+// rabbit은 animal을 상속받습니다.
 let rabbit = {
   __proto__: animal,
-  name: "토끼",
-  eat() {         // rabbit.eat.[[HomeObject]] == rabbit
-    super.eat();
+  sayHi() {
+    super.sayHi();
   }
 };
 
-let longEar = {
-  __proto__: rabbit,
-  name: "귀가 긴 토끼",
-  eat() {         // longEar.eat.[[HomeObject]] == longEar
-    super.eat();
+let plant = {
+  sayHi() {
+    console.log("나는 식물입니다.");
   }
 };
 
-// 이제 제대로 동작합니다
-longEar.eat();  // 귀가 긴 토끼 이/가 먹이를 먹습니다.
+// tree는 plant를 상속받습니다.
+let tree = {
+  __proto__: plant,
+  sayHi: rabbit.sayHi // (*)
+};
+
+tree.sayHi();  // 나는 동물입니다. (?!?)
