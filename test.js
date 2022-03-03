@@ -1,15 +1,18 @@
 "use strict";
-let animal = {
-  eat: function() { // 'eat() {...' 대신 'eat: function() {...'을 사용해봅시다.
-    // ...
-  }
-};
+class Animal {
 
-let rabbit = {
-  __proto__: animal,
-  eat: function() {
-    super.eat();
+  constructor(name) {
+    this.name = name;
   }
-};
 
-rabbit.eat();  // SyntaxError: 'super' keyword unexpected here ([[HomeObject]]가 없어서 에러가 발생함)
+}
+
+class Rabbit extends Animal {
+  constructor(name) {
+    this.name = name;
+    this.created = Date.now();
+  }
+}
+
+let rabbit = new Rabbit("White Rabbit"); // Error: this is not defined
+alert(rabbit.name);
