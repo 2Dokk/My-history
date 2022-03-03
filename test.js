@@ -5,18 +5,12 @@ class Article {
     this.date = date;
   }
 
-  static compare(articleA, articleB) {
-    return articleA.date - articleB.date;
+  static createTodays() {
+    // this는 Article입니다.
+    return new this("Today's digest", new Date());
   }
 }
 
-// 사용법
-let articles = [
-  new Article("HTML", new Date(2019, 1, 1)),
-  new Article("CSS", new Date(2019, 0, 1)),
-  new Article("JavaScript", new Date(2019, 11, 1))
-];
+let article = Article.createTodays();
 
-articles.sort((A,B)=> B-A);
-
-alert( articles[0].title ); // CSS
+alert( article.title ); // Today's digest
