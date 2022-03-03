@@ -1,10 +1,26 @@
 "use strict";
-function f(phrase) {
-  return class {
-    sayHi() { alert(phrase) }
+let animal = {
+  name: "동물",
+  eat() {         // animal.eat.[[HomeObject]] == animal
+    alert(`${this.name} 이/가 먹이를 먹습니다.`);
   }
-}
+};
 
-class User extends f("Hello") {}
+let rabbit = {
+  __proto__: animal,
+  name: "토끼",
+  eat() {         // rabbit.eat.[[HomeObject]] == rabbit
+    super.eat();
+  }
+};
 
-new User().sayHi(); // Hello
+let longEar = {
+  __proto__: rabbit,
+  name: "귀가 긴 토끼",
+  eat() {         // longEar.eat.[[HomeObject]] == longEar
+    super.eat();
+  }
+};
+
+// 이제 제대로 동작합니다
+longEar.eat();  // 귀가 긴 토끼 이/가 먹이를 먹습니다.
