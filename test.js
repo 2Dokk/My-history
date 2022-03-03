@@ -1,16 +1,37 @@
 "use strict";
-class Article {
-  constructor(title, date) {
-    this.title = title;
-    this.date = date;
+class Animal {
+  static planet = "지구";
+
+  constructor(name, speed) {
+    this.speed = speed;
+    this.name = name;
   }
 
-  static createTodays() {
-    // this는 Article입니다.
-    return new this("Today's digest", new Date());
+  run(speed = 0) {
+    this.speed += speed;
+    alert(`${this.name}가 속도 ${this.speed}로 달립니다.`);
+  }
+
+  static compare(animalA, animalB) {
+    return animalA.speed - animalB.speed;
+  }
+
+}
+
+// Animal을 상속받음
+class Rabbit extends Animal {
+  hide() {
+    alert(`${this.name}가 숨었습니다!`);
   }
 }
 
-let article = Article.createTodays();
+let rabbits = [
+  new Rabbit("흰 토끼", 10),
+  new Rabbit("검은 토끼", 5)
+];
 
-alert( article.title ); // Today's digest
+rabbits.sort(Rabbit.compare);
+
+rabbits[0].run(); // 검은 토끼가 속도 5로 달립니다.
+
+alert(Rabbit.planet); // 지구
