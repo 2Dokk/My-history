@@ -1,11 +1,16 @@
 "use strict";
-class Rabbit {
-  constructor(name) {
-    this.name = name;
+class CoffeeMachine {
+  waterAmount = 0; // 물통에 차 있는 물의 양
+
+  constructor(power) {
+    this.power = power;
+    alert( `전력량이 ${power}인 커피머신을 만듭니다.` );
   }
+
 }
 
-let rabbit = new Rabbit("Rab");
+// 커피 머신 생성
+let coffeeMachine = new CoffeeMachine(100);
 
-// 메서드 hasOwnProperty는 Object.prototype에서 왔습니다.
-alert( rabbit.hasOwnProperty('name') ); // true
+// 물 추가
+coffeeMachine.waterAmount = 200;
