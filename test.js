@@ -1,14 +1,12 @@
 "use strict";
-// 메서드 하나를 추가합니다(더 많이 추가하는 것도 가능).
-class PowerArray extends Array {
-  isEmpty() {
-    return this.length === 0;
+// canEat 프로퍼티가 있으면 animal이라고 판단할 수 있도록
+// instanceOf의 로직을 직접 설정합니다.
+class Animal {
+  static [Symbol.hasInstance](obj) {
+    if (obj.canEat) return true;
   }
 }
 
-let arr = new PowerArray(1, 2, 5, 10, 50);
-alert(arr.isEmpty()); // false
+let obj = { canEat: true };
 
-let filteredArr = arr.filter(item => item >= 10);
-alert(filteredArr); // 10, 50
-alert(filteredArr.isEmpty()); // false
+alert(obj instanceof Animal); // true, Animal[Symbol.hasInstance](obj)가 호출됨
