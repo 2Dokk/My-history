@@ -1,9 +1,23 @@
 "use strict";
-function A() {}
-function B() {}
+// 믹스인
+let sayHiMixin = {
+  sayHi() {
+    alert(`Hello ${this.name}`);
+  },
+  sayBye() {
+    alert(`Bye ${this.name}`);
+  }
+};
 
-A.prototype = B.prototype = {};
+// 사용법:
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
 
-let a = new A();
+// 메서드 복사
+Object.assign(User.prototype, sayHiMixin);
 
-alert( a instanceof B ); // true
+// 이제 User가 인사를 할 수 있습니다.
+new User("Dude").sayHi(); // Hello Dude!
