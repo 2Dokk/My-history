@@ -13,4 +13,4 @@ class CoffeeMachine {
 let coffeeMachine = new CoffeeMachine(100);
 
 // 물 추가
-coffeeMachine.waterAmount = 200;f
+coffeeMachine.waterAmount = 200;
