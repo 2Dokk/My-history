@@ -1,20 +1,16 @@
 "use strict";
 class CoffeeMachine {
-  // ...
+  #waterLimit = 200;
 
-  constructor(power) {
-    this._power = power;
-  }
-
-  get power() {
-    return this._power;
+  #checkWater(value) {
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+    if (value > this.#waterLimit) throw new Error("물이 용량을 초과합니다.");
   }
 
 }
 
-// 커피 머신 생성
-let coffeeMachine = new CoffeeMachine(100);
+let coffeeMachine = new CoffeeMachine();
 
-alert(`전력량이 ${coffeeMachine.power}인 커피머신을 만듭니다.`); // 전력량이 100인 커피머신을 만듭니다.
-
-coffeeMachine._power = 25; // Error (setter 없음)
+// 클래스 외부에서 private에 접근할 수 없음
+coffeeMachine.#checkWater(); // Error
+coffeeMachine.#waterLimit = 1000; // Error
