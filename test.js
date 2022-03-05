@@ -1,5 +1,9 @@
 "use strict";
-let obj = {};
+function A() {}
+function B() {}
 
-alert(obj); // [object Object]
-alert(obj.toString()); // 같은 결과가 출력됨
+A.prototype = B.prototype = {};
+
+let a = new A();
+
+alert( a instanceof B ); // true
