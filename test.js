@@ -1,59 +1,8 @@
 "use strict";
-let eventMixin = {
-  /**
-   *  이벤트 구독
-   *  사용패턴: menu.on('select', function(item) { ... }
-  */
-  on(eventName, handler) {
-    if (!this._eventHandlers) this._eventHandlers = {};
-    if (!this._eventHandlers[eventName]) {
-      this._eventHandlers[eventName] = [];
-    }
-    this._eventHandlers[eventName].push(handler);
-  },
+let json = '{"name":"John", "age": 30}'; // 서버로부터 전달받은 데이터
 
-  /**
-   *  구독 취소
-   *  사용패턴: menu.off('select', handler)
-   */
-  off(eventName, handler) {
-    let handlers = this._eventHandlers?.[eventName];
-    if (!handlers) return;
-    for (let i = 0; i < handlers.length; i++) {
-      if (handlers[i] === handler) {
-        handlers.splice(i--, 1);
-      }
-    }
-  },
+let user = JSON.parse(json); // 전달받은 문자열을 자바스크립트 객체로 변환
 
-  /**
-   *  주어진 이름과 데이터를 기반으로 이벤트 생성
-   *  사용패턴: this.trigger('select', data1, data2);
-   */
-  trigger(eventName, ...args) {
-    if (!this._eventHandlers?.[eventName]) {
-      return; // no handlers for that event name
-    }
-
-    // 핸들러 호출
-    this._eventHandlers[eventName].forEach(handler => handler.apply(this, args));
-  }
-};
-
-// 클래스 생성
-class Menu {
-  choose(value) {
-    this.trigger("select", value);
-  }
-}
-// 이벤트 관련 메서드가 구현된 믹스인 추가
-Object.assign(Menu.prototype, eventMixin);
-
-let menu = new Menu();
-
-// 메뉴 항목을 선택할 때 호출될 핸들러 추가
-menu.on("select", value => alert(`선택된 값: ${value}`));
-
-// 이벤트가 트리거 되면 핸들러가 실행되어 얼럿창이 뜸
-// 얼럿창 메시지: Value selected: 123
-menu.choose("123");
+// 문자열 형태로 전달받은 user가 프로퍼티를 가진 객체가 됨
+alert( user.name ); // John
+alert( user.age );  // 30
