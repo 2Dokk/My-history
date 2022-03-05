@@ -1,19 +1,14 @@
 "use strict";
-class CoffeeMachine {
-
-  #waterAmount = 0;
-
-  get waterAmount() {
-    return this.#waterAmount;
-  }
-
-  set waterAmount(value) {
-    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
-    this.#waterAmount = value;
+// 메서드 하나를 추가합니다(더 많이 추가하는 것도 가능).
+class PowerArray extends Array {
+  isEmpty() {
+    return this.length === 0;
   }
 }
 
-let machine = new CoffeeMachine();
+let arr = new PowerArray(1, 2, 5, 10, 50);
+alert(arr.isEmpty()); // false
 
-machine.waterAmount = 100;
-alert(machine.#waterAmount); // Error
+let filteredArr = arr.filter(item => item >= 10);
+alert(filteredArr); // 10, 50
+alert(filteredArr.isEmpty()); // false
