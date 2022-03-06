@@ -1,18 +1,9 @@
 "use strict";
-class FormatError extends SyntaxError{
-    constructor(message){
-        super(message);
-        this.name = 'FormatError';
-        this.message = message;
-    }
-}
-let err = new FormatError("formatting error");
-
-
-alert( err.message ); // formatting error
-alert( err.name ); // FormatError
-alert( err.stack ); // stack
-
-alert( err instanceof FormatError ); // true
-alert( err instanceof SyntaxError ); // true (SyntaxError 클래스를 상속받았기 때문입니다.)
-
+function loadScript(src) {
+    // <script> 태그를 만들고 페이지에 태그를 추가합니다.
+    // 태그가 페이지에 추가되면 src에 있는 스크립트를 로딩하고 실행합니다.
+    let script = document.createElement('script');
+    script.src = src;
+    document.head.append(script);
+  }
+  
