@@ -1,14 +1,59 @@
 "use strict";
-try {
-    ...
-    readUser()  // 잠재적 에러 발생처
-    ...
-  } catch (err) {
-    if (err instanceof ValidationError) {
-      // validation 에러 처리
-    } else if (err instanceof SyntaxError) {
-      // 문법 에러 처리
+
+class ReadError extends Error {
+    constructor(message, cause) {
+      super(message);
+      this.cause = cause;
+      this.name = 'ReadError';
+    }
+  }
+  
+  class ValidationError extends Error { /*...*/ }
+  class PropertyRequiredError extends ValidationError { /* ... */ }
+  
+  function validateUser(user) {
+    if (!user.age) {
+      throw new PropertyRequiredError("age");
+    }
+  
+    if (!user.name) {
+      throw new PropertyRequiredError("name");
+    }
+  }
+  
+  function readUser(json) {
+    let user;
+  
+    try {
+      user = JSON.parse(json);
+    } catch (err) {
+      if (err instanceof SyntaxError) {
+        throw new ReadError("Syntax Error", err);
+      } else {
+        throw err;
+      }
+    }
+  
+    try {
+      validateUser(user);
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        throw new ReadError("Validation Error", err);
+      } else {
+        throw err;
+      }
+    }
+  
+  }
+  
+  try {
+    readUser('{잘못된 형식의 json}');
+  } catch (e) {
+    if (e instanceof ReadError) {
+      alert(e);
+      // Original error: SyntaxError: Unexpected token b in JSON at position 1
+      alert("Original error: " + e.cause);
     } else {
-      throw err; // 알 수 없는 에러는 다시 던지기 함
+      throw e;
     }
   }
