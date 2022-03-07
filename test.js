@@ -1,18 +1,15 @@
 "use strict";
-let urls = [
-  'https://api.github.com/users/iliakan',
-  'https://api.github.com/users/remy',
-  'https://no-such-url'
-];
+let cache = new Map();
 
-Promise.allSettled(urls.map(url => fetch(url)))
-  .then(results => { // (*)
-    results.forEach((result, num) => {
-      if (result.status == "fulfilled") {
-        alert(`${urls[num]}: ${result.value.status}`);
-      }
-      if (result.status == "rejected") {
-        alert(`${urls[num]}: ${result.reason}`);
-      }
+function loadCached(url) {
+  if (cache.has(url)) {
+    return Promise.resolve(cache.get(url)); // (*)
+  }
+
+  return fetch(url)
+    .then(response => response.text())
+    .then(text => {
+      cache.set(url,text);
+      return text;
     });
-  });
+}
