@@ -1,11 +1,5 @@
 "use strict";
-function delay(ms) {
-  return new Promise(function(resolve,reject){
-    setTimeout(() => {
-      resolve()
-    }, ms);
-  }
-  )
-}
-
-delay(3000).then(() => alert('3초후 실행'));
+showCircle(150, 150, 100).then(div => {
+  div.classList.add('message-ball');
+  div.append("Hello, world!");
+});
