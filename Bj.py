@@ -1,12 +1,12 @@
-def makeArmy():
-  shooters = []
-  i = 0
-  while i<10:
-    def shooter():
-      print(i)
-    shooters.append(shooter)
-    i += 1
-
-myArmy = makeArmy()
-myArmy[0]()
-myArmy[5]()
+import sys
+input = sys.stdin.readline
+timeList = input().split()
+timeForCook = int(input())
+M = timeForCook + int(timeList[1])
+timeList[1] = str(M)
+if M >= 60:
+  timeList[1] = str(M%60)
+  timeList[0] = str(M//60 + int(timeList[0]))
+if int(timeList[0]) >= 24:
+  timeList[0] = str(int(timeList[0])%24)
+print((' ').join(timeList))
