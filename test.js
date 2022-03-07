@@ -1,12 +1,28 @@
 "use strict";
-function loadScript(src, callback) {
-  let script = document.createElement('script');
-  script.src = src;
-  script.onload = () => callback(script);
-  document.head.append(script);
+loadScript('1.js', step1);
+
+function step1(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('2.js', step2);
+  }
 }
 
-loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js', script => {
-  alert(`${script.src}가 로드되었습니다.`);
-  alert( _ ); // 스크립트에 정의된 함수
-});
+function step2(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('3.js', step3);
+  }
+}
+
+function step3(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // 모든 스크립트가 로딩되면 다른 동작을 수행합니다. (*)
+  }
+};
