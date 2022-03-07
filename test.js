@@ -1,10 +1,15 @@
 "use strict";
-window.addEventListener('unhandledrejection', function(event) {
-  // 이벤트엔 두 개의 특별 프로퍼티가 있습니다.
-  alert(event.promise); // [object Promise] - 에러를 생성하는 프라미스
-  alert(event.reason); // Error: 에러 발생! - 처리하지 못한 에러 객체
-});
+let urls = [
+  'https://api.github.com/users/iliakan',
+  'https://api.github.com/users/remy',
+  'https://api.github.com/users/jeresig'
+];
 
-new Promise(function() {
-  throw new Error("에러 발생!");
-}); // 에러 처리 핸들러, catch가 없음
+// fetch를 사용해 url을 프라미스로 매핑합니다.
+let requests = urls.map(url => fetch(url));
+
+// Promise.all은 모든 작업이 이행될 때까지 기다립니다.
+Promise.all(requests)
+  .then(responses => responses.forEach(
+    response => alert(`${response.url}: ${response.status}`)
+  ));
