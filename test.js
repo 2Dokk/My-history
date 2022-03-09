@@ -19,4 +19,3 @@ function promisify(f) {
 
 // 사용법:
 let loadScriptPromise = promisify(loadScript);
-loadScriptPromise(...).then(...);
