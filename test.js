@@ -1,15 +1,13 @@
 "use strict";
-let cache = new Map();
+function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
 
-function loadCached(url) {
-  if (cache.has(url)) {
-    return Promise.resolve(cache.get(url)); // (*)
-  }
+  script.onload = () => callback(null, script);
+  script.onerror = () => callback(new Error(`${src}를 불러오는 도중에 에러가 발생함`));
 
-  return fetch(url)
-    .then(response => response.text())
-    .then(text => {
-      cache.set(url,text);
-      return text;
-    });
+  document.head.append(script);
 }
+
+// usage:
+// loadScript('path/script.js', (err, script) => {...})
