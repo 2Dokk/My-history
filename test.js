@@ -1,11 +1,13 @@
 "use strict";
-function promisify(f) {
-  return function (...args) { // 래퍼 함수를 반환함
-    return new Promise((resolve, reject) => {
-      function callback(err, result) { // f에 사용할 커스텀 콜백
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      }
+function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+
+  script.onload = () => callback(null, script);
+  script.onerror = () => callback(new Error(`${src}를 불러오는 도중에 에러가 발생함`));
+
+  document.head.append(script);
+}
+
+// usage:
+// loadScript('path/script.js', (err, script) => {...})
