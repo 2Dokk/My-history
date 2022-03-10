@@ -1,13 +1,12 @@
 "use strict";
-function loadScript(src, callback) {
-  let script = document.createElement('script');
-  script.src = src;
-
-  script.onload = () => callback(null, script);
-  script.onerror = () => callback(new Error(`${src}를 불러오는 도중에 에러가 발생함`));
-
-  document.head.append(script);
+let loadScriptPromise = function(src) {
+  return new Promise((resolve, reject) => {
+    loadScript(src, (err, script) => {
+      if (err) reject(err)
+      else resolve(script);
+    });
+  })
 }
 
-// usage:
-// loadScript('path/script.js', (err, script) => {...})
+// 사용법:
+// loadScriptPromise('path/script.js').then(...)
