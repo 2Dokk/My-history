@@ -1,25 +1,13 @@
 "use strict";
-function* generateSequence(start, end) {
-  for (let i = start; i <= end; i++) yield i;
+function* gen() {
+  // 질문을 제너레이터 밖 코드에 던지고 답을 기다립니다.
+  let result = yield "2 + 2 = ?"; // (*)
+
+  alert(result);
 }
 
-function* generatePasswordCodes() {
+let generator = gen();
 
-  // 0..9
-  yield* generateSequence(48, 57);
+let question = generator.next().value; // <-- yield는 value를 반환합니다.
 
-  // A..Z
-  yield* generateSequence(65, 90);
-
-  // a..z
-  yield* generateSequence(97, 122);
-
-}
-
-let str = '';
-
-for(let code of generatePasswordCodes()) {
-  str += String.fromCharCode(code);
-}
-
-alert(str); // 0..9A..Za..z
+generator.next(4); // --> 결과를 제너레이터 안으로 전달합니다.
