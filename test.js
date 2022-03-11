@@ -7,15 +7,15 @@ let user = {
 };
 
 let userProxy = new Proxy(user, {
-  get(target, prop, receiver) {
-    return target[prop]; // (*) target = user
+  get(target, prop, receiver) { // receiver = admin
+    return Reflect.get(target, prop, receiver); // (*)
   }
 });
+
 
 let admin = {
   __proto__: userProxy,
   _name: "Admin"
 };
 
-// Expected: Admin
-alert(admin.name); // outputs: Guest (?!?)
+alert(admin.name); // Admin
