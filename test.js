@@ -1,31 +1,33 @@
 "use strict";
-function* gen() {
-  try {
-    let result = yield "2 + 2 = ?"; // (1)
+function* pseudoRandom(seed) {
+  let value = seed;
 
-    alert("위에서 에러가 던져졌기 때문에 실행 흐름은 여기까지 다다르지 못합니다.");
-  } catch(e) {
-    alert(e); // 에러 출력
+  while(true) {
+    value = value * 16807 % 2147483647
+    yield value;
+  }
+
+};
+
+let generator = pseudoRandom(1);
+
+alert(generator.next().value); // 16807
+alert(generator.next().value); // 282475249
+alert(generator.next().value); // 1622650073
+
+
+
+function pseudoRandom(seed) {
+  let value = seed;
+
+  return function() {
+    value = value * 16807 % 2147483647;
+    return value;
   }
 }
 
-let generator = gen();
+let generator = pseudoRandom(1);
 
-let question = generator.next().value;
-
-generator.throw(new Error("데이터베이스에서 답을 찾지 못했습니다.")); // (2)
-
-
-function* generate() {
-  let result = yield "2 + 2 = ?"; // Error in this line
-}
-
-let generator = generate();
-
-let question = generator.next().value;
-
-try {
-  generator.throw(new Error("데이터베이스에서 답을 찾지 못했습니다."));
-} catch(e) {
-  alert(e); // 에러 출력
-}
+alert(generator()); // 16807
+alert(generator()); // 282475249
+alert(generator()); // 1622650073
