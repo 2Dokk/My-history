@@ -1,14 +1,18 @@
 "use strict";
-let range = {
-  start: 1,
-  end: 10
-};
+function delay(f, ms) {
+  return new Proxy(f, {
+    apply(target, thisArg, args) {
+      setTimeout(() => target.apply(thisArg, args), ms);
+    }
+  });
+}
 
-range = new Proxy(range, {
-  has(target, prop) {
-    return prop >= target.start && prop <= target.end;
-  }
-});
+function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}
 
-alert(5 in range); // true
-alert(50 in range); // false
+sayHi = delay(sayHi, 3000);
+
+alert(sayHi.length); // 1 (*) 프락시는 "get length" 연산까지 타깃 객체에 전달해줍니다.
+
+sayHi("John"); // Hello, John! (3초 후)
