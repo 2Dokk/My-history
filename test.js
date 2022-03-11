@@ -1,14 +1,22 @@
 "use strict";
-class User {
-  #name = "Guest";
+let user = {
+  name: "John"
+};
 
-  getName() {
-    return this.#name;
-  }
+function wrap(target) {
+  return new Proxy(target, {
+    get(target,prop,receiver){
+      if (prop in target){
+        return target[prop];
+      } else {
+        throw new Error();
+      }
+    }
+      /* 여기에 코드를 작성하세요. */
+  });
 }
 
-let user = new User();
+user = wrap(user);
 
-user = new Proxy(user, {});
-
-alert(user.getName()); // Error
+alert(user.name); // John
+alert(user.age); // ReferenceError: Property doesn't exist "age"
