@@ -1,13 +1,16 @@
 "use strict";
 function* gen() {
-  // 질문을 제너레이터 밖 코드에 던지고 답을 기다립니다.
-  let result = yield "2 + 2 = ?"; // (*)
+  try {
+    let result = yield "2 + 2 = ?"; // (1)
 
-  alert(result);
+    alert("위에서 에러가 던져졌기 때문에 실행 흐름은 여기까지 다다르지 못합니다.");
+  } catch(e) {
+    alert(e); // 에러 출력
+  }
 }
 
 let generator = gen();
 
-let question = generator.next().value; // <-- yield는 value를 반환합니다.
+let question = generator.next().value;
 
-generator.next(4); // --> 결과를 제너레이터 안으로 전달합니다.
+generator.throw(new Error("데이터베이스에서 답을 찾지 못했습니다.")); // (2)
