@@ -1,21 +1,12 @@
 "use strict";
-let user = {
-  _name: "Guest",
-  get name() {
-    return this._name;
-  }
-};
+let map = new Map();
 
-let userProxy = new Proxy(user, {
-  get(target, prop, receiver) { // receiver = admin
-    return Reflect.get(target, prop, receiver); // (*)
+let proxy = new Proxy(map, {
+  get(target, prop, receiver) {
+    let value = Reflect.get(...arguments);
+    return typeof value == 'function' ? value.bind(target) : value;
   }
 });
 
-
-let admin = {
-  __proto__: userProxy,
-  _name: "Admin"
-};
-
-alert(admin.name); // Admin
+proxy.set('test', 1);
+alert(proxy.get('test')); // 1 (works!)
