@@ -1,18 +1,21 @@
 "use strict";
-function delay(f, ms) {
-  return new Proxy(f, {
-    apply(target, thisArg, args) {
-      setTimeout(() => target.apply(thisArg, args), ms);
-    }
-  });
-}
+let user = {
+  _name: "Guest",
+  get name() {
+    return this._name;
+  }
+};
 
-function sayHi(user) {
-  alert(`Hello, ${user}!`);
-}
+let userProxy = new Proxy(user, {
+  get(target, prop, receiver) {
+    return target[prop]; // (*) target = user
+  }
+});
 
-sayHi = delay(sayHi, 3000);
+let admin = {
+  __proto__: userProxy,
+  _name: "Admin"
+};
 
-alert(sayHi.length); // 1 (*) 프락시는 "get length" 연산까지 타깃 객체에 전달해줍니다.
-
-sayHi("John"); // Hello, John! (3초 후)
+// Expected: Admin
+alert(admin.name); // outputs: Guest (?!?)
