@@ -1,22 +1,17 @@
 "use strict";
-let user = {
-  name: "John"
-};
+let array = [1, 2, 3];
 
-function wrap(target) {
-  return new Proxy(target, {
-    get(target,prop,receiver){
-      if (prop in target){
-        return target[prop];
-      } else {
-        throw new Error();
-      }
+array = new Proxy(array, {
+  get(target, prop, receiver) {
+    if (prop < 0) {
+      // arr[1] 같은 형태로 배열 요소에 접근하는 경우에도
+      // prop은 문자열이기 때문에 숫자로 바꿔줘야 합니다.
+      prop = +prop + target.length;
     }
-      /* 여기에 코드를 작성하세요. */
-  });
-}
+    return Reflect.get(target, prop, receiver);
+  }
+});
 
-user = wrap(user);
 
-alert(user.name); // John
-alert(user.age); // ReferenceError: Property doesn't exist "age"
+alert(array[-1]); // 3
+alert(array[-2]); // 2
