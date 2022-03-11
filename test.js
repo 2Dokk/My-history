@@ -1,17 +1,34 @@
 "use strict";
-let array = [1, 2, 3];
+let handlers = Symbol('handlers');
 
-array = new Proxy(array, {
-  get(target, prop, receiver) {
-    if (prop < 0) {
-      // arr[1] 같은 형태로 배열 요소에 접근하는 경우에도
-      // prop은 문자열이기 때문에 숫자로 바꿔줘야 합니다.
-      prop = +prop + target.length;
+function makeObservable(target) {
+  // 1. 핸들러를 저장할 곳을 초기화합니다.
+  target[handlers] = [];
+
+  // 나중에 호출될 것을 대비하여 핸들러 함수를 배열에 저장합니다.
+  target.observe = function(handler) {
+    this[handlers].push(handler);
+  };
+
+  // 2. 변경을 처리할 프락시를 만듭니다.
+  return new Proxy(target, {
+    set(target, property, value, receiver) {
+      let success = Reflect.set(...arguments); // 동작을 객체에 전달합니다.
+      if (success) { // 에러 없이 프로퍼티를 제대로 설정했으면
+        // 모든 핸들러를 호출합니다.
+        target[handlers].forEach(handler => handler(property, value));
+      }
+      return success;
     }
-    return Reflect.get(target, prop, receiver);
-  }
+  });
+}
+
+let user = {};
+
+user = makeObservable(user);
+
+user.observe((key, value) => {
+  alert(`SET ${key}=${value}`);
 });
 
-
-alert(array[-1]); // 3
-alert(array[-2]); // 2
+user.name = "John";
