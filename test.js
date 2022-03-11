@@ -1,12 +1,14 @@
 "use strict";
-let map = new Map();
+class User {
+  #name = "Guest";
 
-let proxy = new Proxy(map, {
-  get(target, prop, receiver) {
-    let value = Reflect.get(...arguments);
-    return typeof value == 'function' ? value.bind(target) : value;
+  getName() {
+    return this.#name;
   }
-});
+}
 
-proxy.set('test', 1);
-alert(proxy.get('test')); // 1 (works!)
+let user = new User();
+
+user = new Proxy(user, {});
+
+alert(user.getName()); // Error
