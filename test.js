@@ -1,10 +1,7 @@
 "use strict";
-let a = 1;
-
-function f() {
-  let a = 2;
-
-  eval('alert(a)'); // 2
+function calculator(str){
+  let result = eval(str);
+  return alert(result);
 }
 
-f();
+calculator(prompt('산술 표현식을 입력하시겠습니까?','2*3+2'));
