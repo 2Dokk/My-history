@@ -1,7 +1,17 @@
 "use strict";
-function calculator(str){
-  let result = eval(str);
-  return alert(result);
+function curry(f) { // 커링 변환을 하는 curry(f) 함수
+  return function(a) {
+    return function(b) {
+      return f(a, b);
+    };
+  };
 }
 
-calculator(prompt('산술 표현식을 입력하시겠습니까?','2*3+2'));
+// usage
+function sum(a, b) {
+  return a + b;
+}
+
+let curriedSum = curry(sum);
+
+alert( curriedSum(1)(2) ); // 3
