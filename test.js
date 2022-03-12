@@ -1,14 +1,5 @@
 "use strict";
-function curry(func) {
-
-  return function curried(...args) {
-    if (args.length >= func.length) {
-      return func.apply(this, args);
-    } else {
-      return function(...args2) {
-        return curried.apply(this, args.concat(args2));
-      }
-    }
-  };
-
+alert(location.href); // 현재 URL을 보여줌
+if (confirm("위키피디아 페이지로 가시겠습니까?")) {
+  location.href = "https://wikipedia.org"; // 새로운 페이지로 넘어감
 }
