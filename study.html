@@ -4,6 +4,18 @@
 
     </head>
     <body>
-        
-    </body>
+        <div id="elem" about="Elephant"></div>
+      
+        <script>
+          alert( elem.getAttribute('About') ); // (1) 'Elephant', 속성 읽기
+      
+          elem.setAttribute('Test', 123); // (2) 속성 추가하기
+      
+          alert( elem.outerHTML ); // (3) 추가된 속성 확인하기
+      
+          for (let attr of elem.attributes) { // (4) 속성 전체 나열하기
+            alert( `${attr.name} = ${attr.value}` );
+          }
+        </script>
+      </body>
 </html>
