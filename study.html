@@ -1,26 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <head>
+<body>
 
-    </head>
-    <body>
-        <!-- 이름(name) 정보를 보여주는 div라고 표시 -->
-<div show-info="name"></div>
-<!-- 나이(age) 정보를 보여주는 div라고 표시 -->
-<div show-info="age"></div>
+  <div data-widget-name="menu">Choose the genre</div>
 
-<script>
-  // 표시한 요소를 찾고, 그 자리에 원하는 정보를 보여주는 코드
-  let user = {
-    name: "Pete",
-    age: 25
-  };
+  <script>
+    // getting it
+    let elem = document.querySelector('[data-widget-name]');
 
-  for(let div of document.querySelectorAll('[show-info]')) {
-    // 원하는 정보를 필드 값에 입력해 줌
-    let field = div.getAttribute('show-info');
-    div.innerHTML = user[field]; // Pete가 'name'에, 25가 'age'에 삽입됨
-  }
-</script>
-      </body>
+    // reading the value
+    alert(elem.dataset.widgetName);
+    // or
+    alert(elem.getAttribute('data-widget-name'));
+  </script>
+</body>
 </html>
