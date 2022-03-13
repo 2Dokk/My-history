@@ -2,33 +2,19 @@
 <html>
 <head>
     <style>
-        
+        .alert {
+          padding: 15px;
+          border: 1px solid #d6e9c6;
+          border-radius: 4px;
+          color: #3c763d;
+          background-color: #dff0d8;
+        }
     </style>
+        
 </head>
 <body>
-
-    <a name="list">the list</a>
-    <ul>
-      <li><a href="http://google.com">http://google.com</a></li>
-      <li><a href="/tutorial">/tutorial.html</a></li>
-      <li><a href="local/path">local/path</a></li>
-      <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
-      <li><a href="http://nodejs.org">http://nodejs.org</a></li>
-      <li><a href="http://internal.com/test">http://internal.com/test</a></li>
-    </ul>
-    
-    <script>
-      let links = document.querySelectorAll('a');
-
-for (let link of links) {
-  let href = link.getAttribute('href');
-  if (!href) continue; // 속성이 존재하지 않음
-
-  if (!href.includes('://')) continue; // 프로토콜이 존재하지 않음
-
-  if (href.startsWith('http://internal.com')) continue; // 내부 링크
-
-  link.style.color = 'orange';
-}
-    </script>
+        <div class="alert">
+          <strong>안녕하세요!</strong> 중요 메시지를 확인하셨습니다.
+        </div>
+</body>
 </html>
