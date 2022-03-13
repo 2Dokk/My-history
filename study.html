@@ -4,18 +4,23 @@
 
     </head>
     <body>
-        <div id="elem" about="Elephant"></div>
-      
-        <script>
-          alert( elem.getAttribute('About') ); // (1) 'Elephant', 속성 읽기
-      
-          elem.setAttribute('Test', 123); // (2) 속성 추가하기
-      
-          alert( elem.outerHTML ); // (3) 추가된 속성 확인하기
-      
-          for (let attr of elem.attributes) { // (4) 속성 전체 나열하기
-            alert( `${attr.name} = ${attr.value}` );
-          }
-        </script>
+        <!-- 이름(name) 정보를 보여주는 div라고 표시 -->
+<div show-info="name"></div>
+<!-- 나이(age) 정보를 보여주는 div라고 표시 -->
+<div show-info="age"></div>
+
+<script>
+  // 표시한 요소를 찾고, 그 자리에 원하는 정보를 보여주는 코드
+  let user = {
+    name: "Pete",
+    age: 25
+  };
+
+  for(let div of document.querySelectorAll('[show-info]')) {
+    // 원하는 정보를 필드 값에 입력해 줌
+    let field = div.getAttribute('show-info');
+    div.innerHTML = user[field]; // Pete가 'name'에, 25가 'age'에 삽입됨
+  }
+</script>
       </body>
 </html>
