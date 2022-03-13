@@ -12,39 +12,14 @@
     </ol>
     
     <script>
-      let data = {
-  "Fish": {
-    "trout": {},
-    "salmon": {}
-  },
-
-  "Tree": {
-    "Huge": {
-      "sequoia": {},
-      "oak": {}
-    },
-    "Flowering": {
-      "apple tree": {},
-      "magnolia": {}
-    }
-  }
-};
-      let container = document.getElementById('container');
-      createTree(container, data); // container 요소 내에 트리를 생성합니다.
-      function createTree(container, data){
-        container.innerHTML = createTreeText(data);
-      } 
-      function createTreeText(obj){
-        let li = '';
-        let ul;
-        for (let key in obj){
-          li += '<li>' + key + createTreeText(obj[key])+ '</li>';
-
-        }
-        if (li){
-          ul = '<ul>' + li + '</ul>';
-        }
-        return ul||'';
+      let li = document.getElementsByTagName('li');
+      for (lis of li){
+        
+          let numberOfChild = lis.getElementsByTagName('li').length;
+          if (!numberOfChild){
+            continue;
+          }
+          
       }
     </script>
 </body>
