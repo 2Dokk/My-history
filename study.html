@@ -23,6 +23,13 @@
     alert(example.offsetParent.id); // main
     alert(example.offsetLeft); // 180 (주의: 문자열 '180px'이 아닌 숫자 180이 반환됩니다.)
     alert(example.offsetTop); // 180
+    let centerX = document.documentElement.clientWidth / 2;
+let centerY = document.documentElement.clientHeight / 2;
+
+let elem = document.elementFromPoint(centerX, centerY);
+
+elem.style.background = "red";
+alert(elem.tagName);
   </script>
 
 
