@@ -5,11 +5,6 @@
 
 <body>
   Like this:
-  <input type="button" id="hideself" value="Click to Hide">
-  <script>
-    document.getElementById('hideself').onclick = function() {
-      document.getElementById('hideself').hidden = true;
-    }
-  </script>
+  <input type="button" onclick="this.hidden=true" value="Click to hide">
 </body>
 </html>
