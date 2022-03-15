@@ -4,11 +4,11 @@
 </head>
 
 <body>
-  <div id="text">text</div>
-  <input id='elem' type="button" value="Click to hide the text">
+  Like this:
+  <input type="button" id="hideself" value="Click to Hide">
   <script>
-    document.getElementById('elem').onclick = function(){
-      getElementById('text').hidden = true;
+    document.getElementById('hideself').onclick = function() {
+      document.getElementById('hideself').hidden = true;
     }
   </script>
 </body>
