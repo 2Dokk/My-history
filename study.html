@@ -6,32 +6,5 @@
 
 <body>
 
-  <h2>Notification is on the right</h2>
-
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum aspernatur quam ex eaque inventore quod voluptatem adipisci omnis nemo nulla fugit iste numquam ducimus cumque minima porro ea quidem maxime necessitatibus beatae labore soluta voluptatum
-    magnam consequatur sit laboriosam velit excepturi laborum sequi eos placeat et quia deleniti? Corrupti velit impedit autem et obcaecati fuga debitis nemo ratione iste veniam amet dicta hic ipsam unde cupiditate incidunt aut iure ipsum officiis soluta
-    temporibus. Tempore dicta ullam delectus numquam consectetur quisquam explicabo culpa excepturi placeat quo sequi molestias reprehenderit hic at nemo cumque voluptates quidem repellendus maiores unde earum molestiae ad.
-  </p>
-
-  <main style="position: relative" id="main">
-    <article>
-      <div id="example" style="position: absolute; left: 180px; top: 180px">...</div>
-    </article>
-  </main>
-  <script>
-    alert(example.offsetParent.id); // main
-    alert(example.offsetLeft); // 180 (주의: 문자열 '180px'이 아닌 숫자 180이 반환됩니다.)
-    alert(example.offsetTop); // 180
-    let centerX = document.documentElement.clientWidth / 2;
-let centerY = document.documentElement.clientHeight / 2;
-
-let elem = document.elementFromPoint(centerX, centerY);
-
-elem.style.background = "red";
-alert(elem.tagName);
-  </script>
-
-
 </body>
 </html>
