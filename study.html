@@ -1,12 +1,17 @@
-<table>
-    <tr>
-      <th colspan="3"><em>Bagua</em> Chart: Direction, Element, Color, Meaning</th>
-    </tr>
-    <tr>
-      <td class="nw"><strong>Northwest</strong><br>Metal<br>Silver<br>Elders</td>
-      <td class="n">...</td>
-      <td class="ne">...</td>
-    </tr>
-    <tr>...2 more lines of this kind...</tr>
-    <tr>...2 more lines of this kind...</tr>
-  </table>
+let selectedTd;
+
+table.onclick = function(event) {
+  let target = event.target; // 클릭이 어디서 발생했을까요?
+
+  if (target.tagName != 'TD') return; // TD에서 발생한 게 아니라면 아무 작업도 하지 않습니다,
+
+  highlight(target); // 강조 함
+};
+
+function highlight(td) {
+  if (selectedTd) { // 이미 강조되어있는 칸이 있다면 원상태로 바꿔줌
+    selectedTd.classList.remove('highlight');
+  }
+  selectedTd = td;
+  selectedTd.classList.add('highlight'); // 새로운 td를 강조 함
+}
