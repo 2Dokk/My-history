@@ -1,5 +1,5 @@
-<span id="elem">안녕하세요!</span>
-
-<script>
-  alert( getComputedStyle(elem).width ); // auto
-</script>
+let scrollHeight = Math.max(
+  document.body.scrollHeight, document.documentElement.scrollHeight,
+  document.body.offsetHeight, document.documentElement.offsetHeight,
+  document.body.clientHeight, document.documentElement.clientHeight
+);
