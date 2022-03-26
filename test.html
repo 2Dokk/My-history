@@ -1,12 +1,2 @@
-첫 번째 카운터: <input type="button" value="1" data-counter>
-두 번째 카운터: <input type="button" value="2" data-counter>
-
-<script>
-  document.addEventListener('click', function(event) {
-
-    if (event.target.dataset.counter != undefined) { // 속성이 존재할 경우
-      event.target.value++;
-    }
-
-  });
-</script>
+<button data-tooltip="the tooltip is longer than the element">Short button</button>
+<button data-tooltip="HTML<br>tooltip">One more button</button>
