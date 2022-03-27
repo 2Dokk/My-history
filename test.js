@@ -84,10 +84,10 @@ function keyPressed() {
   } else if(keyCode === SHIFT){
     if (changeMode){
       changeMode = false;
-      print('on');
+      print('off');
     } else{
       changeMode = true;
-      print('off');
+      print('on');
       }
     } else if(keyCode === UP_ARROW){
       setX = mouseX - width / 2;
@@ -95,6 +95,8 @@ function keyPressed() {
       setMX = pmouseX - width / 2;
       setMY = pmouseY - height / 2;
       print('중심이 설정되었습니다');
-      
+    } else if(keyCode === DOWN_ARROW){
+      symmetry = +prompt('얼마나 반사하길 원하시나요?',24);
+      angle = 360 / symmetry;
     }
 }
