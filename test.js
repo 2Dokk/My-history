@@ -1,5 +1,4 @@
 let symmetry = 24;   
-
 let angle = 360 / symmetry;
 let mouseButton, keyboardButton;
 let slider;
@@ -7,6 +6,9 @@ let shadow = false;
 let changeMode = false;
 let setX = 0;
 let setY = 0;
+let setMX = 0;
+let setMY = 0;
+let settingM = false;
 
 function setup() { 
   createCanvas(710, 710);
@@ -36,10 +38,10 @@ function draw() {
   if (changeMode){
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
       translate(setX,setY);
-      let mx = mouseX - width / 2;
-      let my = mouseY - height / 2;
-      let pmx = pmouseX - width / 2;
-      let pmy = pmouseY - height / 2;
+      let mx = mouseX - width / 2 -setX;
+      let my = mouseY - height / 2 - setY;
+      let pmx = pmouseX - width / 2 - setMX;
+      let pmy = pmouseY - height / 2 - setMY;
 
       if (mouseIsPressed) {
         for (let i = 0; i < symmetry; i++) {
@@ -74,19 +76,25 @@ function keyPressed() {
   if (keyCode === ENTER) {
     if (shadow){
       shadow = false;
+      print('shadow-off');
     } else{
       shadow = true;
+      print('shadow-on');
     }
   } else if(keyCode === SHIFT){
     if (changeMode){
       changeMode = false;
+      print('on');
     } else{
       changeMode = true;
+      print('off');
       }
-    } else if(keyCode === CONTROL){
-      if (mouseIsPressed){
-        setX = mouseX - width / 2;
-        setY = mouseY - height / 2;
-      }
+    } else if(keyCode === UP_ARROW){
+      setX = mouseX - width / 2;
+      setY = mouseY - height / 2;
+      setMX = pmouseX - width / 2;
+      setMY = pmouseY - height / 2;
+      print('중심이 설정되었습니다');
+      
     }
 }
