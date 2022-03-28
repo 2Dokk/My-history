@@ -107,9 +107,9 @@ function keyPressed() {
       setY = mouseY - height / 2;
       setMX = pmouseX - width / 2;
       setMY = pmouseY - height / 2;
-      alert('중심이 설정되었습니다');
+      alert('The center point setting was successful.');
     } else if(keyCode === DOWN_ARROW){
-      symmetry = +prompt('반사 횟수를 정해주세요',24);
+      symmetry = +prompt('Enter the desired number of reflections.',24);
       angle = 360 / symmetry;
     }
 }
