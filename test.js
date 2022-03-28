@@ -9,6 +9,7 @@ let setY = 0;
 let setMX = 0;
 let setMY = 0;
 let settingM = false;
+let clearButton;
 
 function setup() { 
   createCanvas(710, 710);
@@ -19,12 +20,24 @@ function setup() {
   
   // 브러시 두께 조정을 위한 슬라이더 설정하기
   brushSizeSlider = createButton('Brush Size Slider');
-  sizeSlider = createSlider(1, 32, 4, 0.1);
+    sizeSlider = createSlider(1, 32, 4, 0.1);
+  fullscreenButton = createButton('Full Screen');
+  fullscreenButton.mousePressed(screenFull);
+
+  clearButton = createButton('clear');
+  clearButton.mousePressed(clearScreen);
   //colorMode(HSB, 360, 100, 100, 100);
   //colorMode(HSB, 100);
 }
 
+function screenFull() {
+  let fs = fullscreen();
+  fullscreen(!fs);
+}
 
+function clearScreen() {
+  background(230);
+}
 
 function draw() {
   translate(width / 2, height / 2);
@@ -76,27 +89,27 @@ function keyPressed() {
   if (keyCode === ENTER) {
     if (shadow){
       shadow = false;
-      print('shadow-off');
+      alert('shadow-off');
     } else{
       shadow = true;
-      print('shadow-on');
+      alert('shadow-on');
     }
   } else if(keyCode === SHIFT){
     if (changeMode){
       changeMode = false;
-      print('off');
+      alert('off');
     } else{
       changeMode = true;
-      print('on');
+      alert('on');
       }
     } else if(keyCode === UP_ARROW){
       setX = mouseX - width / 2;
       setY = mouseY - height / 2;
       setMX = pmouseX - width / 2;
       setMY = pmouseY - height / 2;
-      print('중심이 설정되었습니다');
+      alert('중심이 설정되었습니다');
     } else if(keyCode === DOWN_ARROW){
-      symmetry = +prompt('얼마나 반사하길 원하시나요?',24);
+      symmetry = +prompt('반사 횟수를 정해주세요',24);
       angle = 360 / symmetry;
     }
 }
