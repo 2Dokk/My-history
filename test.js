@@ -1,6 +1,6 @@
 let symmetry = 24;   
 let angle = 360 / symmetry;
-let mouseButton, keyboardButton, clearButton, helpButton;
+let clearButton, helpButton, sizeSlider;
 let slider;
 let shadow = false;
 let changeMode = false;
@@ -12,31 +12,24 @@ let setMY = 0;
 
 
 function setup() { 
-  createCanvas(710, 710);
+  createCanvas(848, 848);
   angleMode(DEGREES);
   background(230);
   brushSizeSlider = createButton('Brush Size Slider');
-    sizeSlider = createSlider(1, 32, 4, 0.1);
-  fullscreenButton = createButton('Full Screen');
-  fullscreenButton.mousePressed(screenFull);
+  sizeSlider = createSlider(1, 32, 4, 0.1);
+
 
   clearButton = createButton('clear');
   clearButton.mousePressed(clearScreen);
   helpButton = createButton('help');
   helpButton.mousePressed(helpF);
 }
-
-function screenFull() {
-  let fs = fullscreen();
-  fullscreen(!fs);
-}
-
 function clearScreen() {
   background(230);
 }
 
 function helpF(){
-  alert(`\nEnter: Kaleidoscopic drawing\nshift: Applying effectiveness\nUp_arrow: Set the center of the kaleidoscope\nDown_arrow: Set the reflection frequency of the kaleidoscope`)
+  alert(`\nENTER: Kaleidoscopic drawing\nSHIFT: Applying effectiveness\nUP_ARROW: Set the center of the kaleidoscope\nDOWN_ARROW: Set the reflection frequency of the kaleidoscope`)
 }
 
 function draw() {
@@ -107,7 +100,7 @@ function keyPressed() {
       setY = mouseY - height / 2;
       setMX = pmouseX - width / 2;
       setMY = pmouseY - height / 2;
-      alert('The center point setting was successful.');
+      alert('Center point setting was successful.');
     } else if(keyCode === DOWN_ARROW){
       symmetry = +prompt('Enter the desired number of reflections.',24);
       angle = 360 / symmetry;
