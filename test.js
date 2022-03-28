@@ -1,24 +1,20 @@
 let symmetry = 24;   
 let angle = 360 / symmetry;
-let mouseButton, keyboardButton;
+let mouseButton, keyboardButton, clearButton, helpButton;
 let slider;
 let shadow = false;
 let changeMode = false;
+let settingM = false;
 let setX = 0;
 let setY = 0;
 let setMX = 0;
 let setMY = 0;
-let settingM = false;
-let clearButton;
+
 
 function setup() { 
   createCanvas(710, 710);
   angleMode(DEGREES);
-  background(255);
-
-  // 화면 지우기를 위한 claerButton 생성하기
-  
-  // 브러시 두께 조정을 위한 슬라이더 설정하기
+  background(230);
   brushSizeSlider = createButton('Brush Size Slider');
     sizeSlider = createSlider(1, 32, 4, 0.1);
   fullscreenButton = createButton('Full Screen');
@@ -26,8 +22,8 @@ function setup() {
 
   clearButton = createButton('clear');
   clearButton.mousePressed(clearScreen);
-  //colorMode(HSB, 360, 100, 100, 100);
-  //colorMode(HSB, 100);
+  helpButton = createButton('help');
+  helpButton.mousePressed(helpF);
 }
 
 function screenFull() {
@@ -37,6 +33,10 @@ function screenFull() {
 
 function clearScreen() {
   background(230);
+}
+
+function helpF(){
+  alert(`\nEnter: Kaleidoscopic drawing\nshift: Applying effectiveness\nUp_arrow: Set the center of the kaleidoscope\nDown_arrow: Set the reflection frequency of the kaleidoscope`)
 }
 
 function draw() {
