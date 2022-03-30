@@ -1,87 +1,108 @@
-/* eslint-disable no-undef, no-unused-vars */
+let symmetry = 24;   
+let angle = 360 / symmetry;
+let clearButton, helpButton, sizeSlider;
+let slider;
+let shadow = false;
+let changeMode = false;
+let settingM = false;
+let setX = 0;
+let setY = 0;
+let setMX = 0;
+let setMY = 0;
 
-// Tweakable parameters
-const SNOW_COLOR = "snow";
-const SNOWFLAKES_PER_LAYER = 200;
-const MAX_SIZE = 10;
-const GRAVITY = 0.75;
-const LAYER_COUNT = 4;
 
-const SKY_COLOR = "#B1E8FF";
-const SKY_SPACE = 0.4;
+function setup() { 
+  createCanvas(848, 848);
+  angleMode(DEGREES);
+  background(230);
+  brushSizeSlider = createButton('Brush Size Slider');
+  sizeSlider = createSlider(1, 32, 4, 0.1);
 
-const WIND_SPEED = 1;
-const WIND_CHANGE = 0.0025;
 
-const SUN_COLOR = "#FFF2AD";
-const SUN_GLOW = 100;
-const SUN_RADIUS = 150;
+  clearButton = createButton('clear');
+  clearButton.mousePressed(clearScreen);
+  helpButton = createButton('help');
+  helpButton.mousePressed(helpF);
+}
+function clearScreen() {
+  background(230);
+}
 
-const RIDGE_TOP_COLOR = "#BCCEDD";
-const RIDGE_BOT_COLOR = "#7E9CB9";
-const RIDGE_STEP = 4;
-const RIDGE_AMP = 250;
-const RIDGE_ZOOM = 0.005;
+function helpF(){
+  alert(`\nENTER: Kaleidoscopic drawing\nSHIFT: Applying effectiveness\nUP_ARROW: Set the center of the kaleidoscope\nDOWN_ARROW: Set the reflection frequency of the kaleidoscope`)
+}
 
-const SNOWFLAKES = [];
+function draw() {
+  translate(width / 2, height / 2);
+  if (shadow){
+    drawingContext.shadowBlur = 12;
+    drawingContext.shadowColor = color(207, 7, 99);
+  } else{
+    drawingContext.shadowBlur = 0;
+    drawingContext.shadowColor = color(207, 7, 99);
+  }
+  if (changeMode){
+    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+      translate(setX,setY);
+      let mx = mouseX - width / 2 -setX;
+      let my = mouseY - height / 2 - setY;
+      let pmx = pmouseX - width / 2 - setMX;
+      let pmy = pmouseY - height / 2 - setMY;
 
-function setup() {
-    createCanvas(1080, 1350);
-    fill(SNOW_COLOR);
-    noStroke();
-    // Initialize the snowflakes with random positions
-    for (let l = 0; l < LAYER_COUNT; l++) {
-        SNOWFLAKES.push([]);
-        for (let i = 0; i < SNOWFLAKES_PER_LAYER; i++) {
-          SNOWFLAKES[l].push({
-            //x: random(width),
-            //y: random(height),
-            //mass: random(0.75, 1.25),
-            l: l + 1
-          });
+      if (mouseIsPressed) {
+        for (let i = 0; i < symmetry; i++) {
+          rotate(angle);
+          let sw = sizeSlider.value();
+          strokeWeight(sw);
+          stroke(mouseX,mouseY,50);
+          line(mx, my, pmx, pmy);
+          push();
+          scale(1, -1);
+
+          line(mx, my, pmx, pmy);
+          pop();
         }
       }
+    }
+  } else{
+    if (mouseIsPressed) {
+      let sw = sizeSlider.value();
+      strokeWeight(sw);
+      stroke(0);
+      let mx = mouseX - width / 2;
+      let my = mouseY - height / 2;
+      let pmx = pmouseX - width / 2;
+      let pmy = pmouseY - height / 2;
+      line(mx, my, pmx, pmy);
+    }
+  }
 }
-function draw() {
-    background(SKY_COLOR);
-    const skyHeight = round(height * SKY_SPACE);
-    drawSun(width / 2, skyHeight - RIDGE_AMP / 2);
-  
-    // Iterate through the layers of snowflakes
-    for (let l = 0; l < SNOWFLAKES.length; l++) {
-      const SNOWLAYER = SNOWFLAKES[l];
-  
-      // Draw a ridge for each layer of snow
-      const layerPosition = l * ((height - skyHeight) / LAYER_COUNT);
-      drawRidge(l, skyHeight + layerPosition);
-      
+
+function keyPressed() {
+  if (keyCode === ENTER) {
+    if (shadow){
+      shadow = false;
+      alert('shadow-off');
+    } else{
+      shadow = true;
+      alert('shadow-on');
     }
-  }
-  // Draw a simple sun
-function drawSun(x, y) {
-    fill(SUN_COLOR);
-    drawingContext.shadowBlur = SUN_GLOW;
-    drawingContext.shadowColor = SUN_COLOR;
-    circle(x, y, SUN_RADIUS * 2);
-    drawingContext.shadowBlur = 0;
-  }
-function drawRidge(l, y) {
-    // Choose a color for the ridge based on its height
-    const FILL = lerpColor(
-      color(RIDGE_TOP_COLOR),
-      color(RIDGE_BOT_COLOR),
-      l / (LAYER_COUNT - 1)
-    );
-    fill(FILL);
-  
-    beginShape();
-    // Iterate through the width of the canvas
-    for (let x = 0; x <= width; x += RIDGE_STEP) {
-      const noisedY = noise(x * RIDGE_ZOOM, y);
-      vertex(x, y - noisedY * RIDGE_AMP);
+  } else if(keyCode === SHIFT){
+    if (changeMode){
+      changeMode = false;
+      alert('off');
+    } else{
+      changeMode = true;
+      alert('on');
+      }
+    } else if(keyCode === UP_ARROW){
+      setX = mouseX - width / 2;
+      setY = mouseY - height / 2;
+      setMX = pmouseX - width / 2;
+      setMY = pmouseY - height / 2;
+      alert('Center point setting was successful.');
+    } else if(keyCode === DOWN_ARROW){
+      symmetry = +prompt('Enter the desired number of reflections.',24);
+      angle = 360 / symmetry;
     }
-    vertex(width, height);
-    vertex(0, height);
-    endShape(CLOSE);
-    fill(SNOW_COLOR);
-  }
+}
