@@ -8,7 +8,6 @@ var app = http.createServer(function(request,response){
     var pathname = url.parse(_url, true).pathname;
     if(pathname === '/'){
       if(queryData.id === undefined){
-        fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
           var title = 'Welcome';
           var description = 'Hello, Node.js';
           var template = `
@@ -32,7 +31,7 @@ var app = http.createServer(function(request,response){
           `;
           response.writeHead(200);
           response.end(template);
-        });
+        };
       } else {
         fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
           var title = queryData.id;
