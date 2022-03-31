@@ -82,9 +82,11 @@ var app = http.createServer(function(request,response){
           var post = qs.parse(body);
           var title = post.title;
           var description = post.description;
+          fs.writeFile(`data/${title}`, description,'utf-8',function(err){
+            response.writeHead(200);
+            response.end('Success');            
+          })
         });
-        response.writeHead(200);
-        response.end('Success');
     } else {
       response.writeHead(404);
       response.end('Not found');
