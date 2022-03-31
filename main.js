@@ -74,7 +74,15 @@ var app = http.createServer(function(request,response){
         response.end(template);
       });
     } else if(pathname === '/create_process'){
-        
+        var body = '';
+        request.on('data', function(data){
+          
+        });
+          request.on('end', function(){
+          
+        });
+        response.writeHead(200);
+        response.end('Success');
     } else {
       response.writeHead(404);
       response.end('Not found');
