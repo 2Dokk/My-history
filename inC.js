@@ -1,108 +1,31 @@
-let symmetry = 24;   
-let angle = 360 / symmetry;
-let clearButton, helpButton, sizeSlider;
-let slider;
-let shadow = false;
-let changeMode = false;
-let settingM = false;
-let setX = 0;
-let setY = 0;
-let setMX = 0;
-let setMY = 0;
+const graph = {
+  A: ["B", "C"],
+  B: ["A", "D"],
+  C: ["A", "G", "H", "I"],
+  D: ["B", "E", "F"],
+  E: ["D"],
+  F: ["D"],
+  G: ["C"],
+  H: ["C"],
+  I: ["C", "J"],
+  J: ["I"]
+};
 
+const BFS = (graph, startNode) => {
+  const visited = []; // 탐색을 마친 노드들
+  let needVisit = []; // 탐색해야할 노드들
 
-function setup() { 
-  createCanvas(848, 848);
-  angleMode(DEGREES);
-  background(230);
-  brushSizeSlider = createButton('Brush Size Slider');
-  sizeSlider = createSlider(1, 32, 4, 0.1);
+  needVisit.push(startNode); // 노드 탐색 시작
 
-
-  clearButton = createButton('clear');
-  clearButton.mousePressed(clearScreen);
-  helpButton = createButton('help');
-  helpButton.mousePressed(helpF);
-}
-function clearScreen() {
-  background(230);
-}
-
-function helpF(){
-  alert(`\nENTER: Kaleidoscopic drawing\nSHIFT: Applying effectiveness\nUP_ARROW: Set the center of the kaleidoscope\nDOWN_ARROW: Set the reflection frequency of the kaleidoscope`)
-}
-
-function draw() {
-  translate(width / 2, height / 2);
-  if (shadow){
-    drawingContext.shadowBlur = 12;
-    drawingContext.shadowColor = color(207, 7, 99);
-  } else{
-    drawingContext.shadowBlur = 0;
-    drawingContext.shadowColor = color(207, 7, 99);
-  }
-  if (changeMode){
-    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-      translate(setX,setY);
-      let mx = mouseX - width / 2 -setX;
-      let my = mouseY - height / 2 - setY;
-      let pmx = pmouseX - width / 2 - setMX;
-      let pmy = pmouseY - height / 2 - setMY;
-
-      if (mouseIsPressed) {
-        for (let i = 0; i < symmetry; i++) {
-          rotate(angle);
-          let sw = sizeSlider.value();
-          strokeWeight(sw);
-          stroke(mouseX,mouseY,50);
-          line(mx, my, pmx, pmy);
-          push();
-          scale(1, -1);
-
-          line(mx, my, pmx, pmy);
-          pop();
-        }
-      }
-    }
-  } else{
-    if (mouseIsPressed) {
-      let sw = sizeSlider.value();
-      strokeWeight(sw);
-      stroke(0);
-      let mx = mouseX - width / 2;
-      let my = mouseY - height / 2;
-      let pmx = pmouseX - width / 2;
-      let pmy = pmouseY - height / 2;
-      line(mx, my, pmx, pmy);
+  while (needVisit.length !== 0) { // 탐색해야할 노드가 남아있다면
+    const node = needVisit.shift(); // queue이기 때문에 선입선출, shift()를 사용한다.
+    if (!visited.includes(node)) { // 해당 노드가 탐색된 적 없다면
+      visited.push(node); 
+      needVisit = [...needVisit, ...graph[node]];
     }
   }
-}
+  return visited;
+};
 
-function keyPressed() {
-  if (keyCode === ENTER) {
-    if (shadow){
-      shadow = false;
-      alert('shadow-off');
-    } else{
-      shadow = true;
-      alert('shadow-on');
-    }
-  } else if(keyCode === SHIFT){
-    if (changeMode){
-      changeMode = false;
-      alert('off');
-    } else{
-      changeMode = true;
-      alert('on');
-      }
-    } else if(keyCode === UP_ARROW){
-      setX = mouseX - width / 2;
-      setY = mouseY - height / 2;
-      setMX = pmouseX - width / 2;
-      setMY = pmouseY - height / 2;
-      alert('Center point setting was successful.');
-    } else if(keyCode === DOWN_ARROW){
-      symmetry = +prompt('Enter the desired number of reflections.',24);
-      angle = 360 / symmetry;
-    }
-}
+console.log(BFS(graph, "A"));
+// ["A", "B", "C", "D", "G", "H", "I", "E", "F", "J"]
