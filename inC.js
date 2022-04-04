@@ -1,39 +1,38 @@
-function setup() {
+var points = [];
+mult = 0.005;
+function setup(){
   createCanvas(windowWidth, windowHeight);
-  }
-  function draw() {
-    background(255);
-    randomSeed(0);
-    let x, y, r;
-    let delta = 50;
-    let backSlashProb = map(mouseX, 0, windowWidth, 0,1);
-    let backSlashThickness = map(mouseY, 0, windowHeight,
-  3,30);
-    for (y=0; y<windowHeight; y+=delta) {
-      for (x=0; x<windowWidth; x+=delta) {
-        r = random(0, 1);
-        if (r < backSlashProb) {
-          stroke(x, 0, y);
-          strokeWeight(backSlashThickness);
-          line(x, y, x+delta, y+delta);
-        } else {
-          stroke(0);
-          strokeWeight(1);
-          line(x+delta, y, x, y+delta);
-        }
-      }
+  background(30);
+  //angleMode(DEGREES);
+  //noiseDetail(1);
+  
+  var density = 20;
+  var space = width / density;
+  
+  for (var x = 0; x < width; x += space){
+    for (var y = 0; y < height; y += space){
+      var p = createVector(x,y);
+      points.push(p);
     }
-    // stroke(255);
-    // strokeWeight(1);
-    // beginShape();
-    // vertex(windowWidth/2-30,windowHeight);
-    // vertex(windowWidth/2-30,windowHeight-300);
-    // vertex(windowWidth/2-100,windowHeight-200);
-    // vertex(windowWidth/2-150,windowHeight-250);
-    // vertex(windowWidth/2-30,windowHeight-300);
-    // vertex(windowWidth/2-30,windowHeight-300);
-    // vertex(windowWidth/2-30,windowHeight-300);
-    // vertex(windowWidth/2+30,windowHeight-300);
-    // vertex(windowWidth/2+30,windowHeight);
-    // endShape();
   }
+
+}
+
+function draw(){
+  noStroke();
+  fill(255);
+  
+  for (var i =0; i< points.length; i++){
+    var r = map(points[i].x, 0, width, 50, 255);
+    var g = map(points[i].y, 0, height, 50 ,255);
+    var b = map(points[i].x, 0, width, 255, 50);
+    
+    fill(r,g,b);
+    
+    var angle = map(noise(points[i].x * mult, points[i].y * mult ), 0, 1, 0,720);
+    
+    points[i].add(createVector(cos(angle), sin(angle)))
+    
+    ellipse(points[i].x, points[i].y , 1);
+  }
+}
