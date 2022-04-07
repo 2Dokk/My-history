@@ -8,10 +8,3 @@ table.onclick = function(event) {
   highlight(target); // 강조 함
 };
 
-function highlight(td) {
-  if (selectedTd) { // 이미 강조되어있는 칸이 있다면 원상태로 바꿔줌
-    selectedTd.classList.remove('highlight');
-  }
-  selectedTd = td;
-  selectedTd.classList.add('highlight'); // 새로운 td를 강조 함
-}
