@@ -1,5 +1,5 @@
 const max_planets = 100;
-const max_rainDrops = 100;
+const max_rainDrops = 500;
 let planets = [];
 let rainDrops = [];
 
@@ -50,7 +50,7 @@ function setup() {
   for (let i=0; i<max_planets; i++) {
     planets[i] = new Planet(
     random(0, windowWidth), random(0, windowHeight), random(-3, 3), random(-3, 3),
-random(30, 100), color(random(230,255),random(230,255) ,random(230,255)) );
+random(50, 200), color(random(230,255),random(230,255) ,random(230,255)) );
 }
   for (let i = 0; i < max_rainDrops; i++){
     rainDrops[i] = new rainDrop(
