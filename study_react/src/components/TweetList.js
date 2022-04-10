@@ -5,8 +5,6 @@ const TweetList = ({name, tweets}) => {
   return (
       <div className="tweet-list">
           <Tweet name={name} tweets={tweets}/>
-          <Tweet name={name} tweets={tweets}/>
-          <Tweet name={name} tweets={tweets}/>
       </div>
   );
 };
