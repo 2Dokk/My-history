@@ -1,9 +1,12 @@
 import React from "react";
- 
-function App(){
+
+function App() {
   return (
-    <div>Hello</div>
-    
+    <div>
+      <div className="box">
+        <h1>Hello</h1>
+      </div>
+    </div>
   );
 }
 
