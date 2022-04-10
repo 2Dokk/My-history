@@ -4,7 +4,7 @@ import TweetList from "./components/TweetList";
 import CreateTweet from "./components/CreateTweet";
 
 function App() {
-  const name = "Lee";
+  const [name, setName] = useState("Lee");
   const message = "Hello";
   return (
     <div>
