@@ -6,6 +6,7 @@ function App() {
     <div>
       <div className="box">
         <h1>Hello</h1>
+        <Tweet></Tweet>
       </div>
     </div>
   );
