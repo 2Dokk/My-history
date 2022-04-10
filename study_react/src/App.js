@@ -6,14 +6,16 @@ import CreateTweet from "./components/CreateTweet";
 function App() {
   const name = "Lee";
   const message = "Welcome";
+  const sayHelloHandler = () => {};
   return (
     <div>
       <div className="box">
-        <h1>Hello</h1>
+        {/* <h1>Hello</h1>
         <CreateTweet />
-        <TweetList name={name} message={message} />
+        <TweetList name={name} message={message} /> */}
+        <h1>{name}</h1>
+        <button onClick={sayHelloHandler}>Click</button>
       </div>
-      <h1>{name}</h1>
     </div>
   );
 }
