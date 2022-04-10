@@ -6,7 +6,9 @@ import CreateTweet from "./components/CreateTweet";
 function App() {
   const name = "Lee";
   const message = "Welcome";
-  const sayHelloHandler = () => {};
+  const sayHelloHandler = (e) => {
+    console.log(e);
+  };
   return (
     <div>
       <div className="box">
