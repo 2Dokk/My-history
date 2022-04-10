@@ -4,7 +4,9 @@ import Tweet from "./Tweet";
 const TweetList = ({name, tweets}) => {
   return (
       <div className="tweet-list">
-          <Tweet name={name} tweets={tweets}/>
+          {tweets.map((tweet) => (
+              <Tweet name="lee" tweets={tweets}/>
+          ))}
       </div>
   );
 };
