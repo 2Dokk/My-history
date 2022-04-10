@@ -1,5 +1,5 @@
 import {useState} from 'react';
- 
+
 function Article(props){
   return <article>
     <h2>{props.title}</h2>
