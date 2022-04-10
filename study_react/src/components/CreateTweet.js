@@ -1,14 +1,12 @@
 import React from "react";
 
-const Tweet = () => {
+const CreateTweet = () => {
   return (
-    <div className="tweet">
-      <h2>Name</h2>
-      <h3>This is the actual tweet</h3>
-      <button>Delete</button>
-      <button>Like</button>
-    </div>
+    <form>
+        <textarea cols="30" rows="10"></textarea>
+        <button>Submit</button>
+    </form>
   );
 };
 
-export default Tweet;
+export default CreateTweet;
