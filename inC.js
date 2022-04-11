@@ -1,4 +1,4 @@
-const max_planets = 200;
+const max_planets = 1000;
 const max_rainDrops = 500;
 let planets = [];
 let rainDrops = [];
@@ -74,12 +74,43 @@ function draw() {
     background(50);
     for (let drop of rainDrops) {
       drop.move();
-      drop.render();
+      if (backgroundMode == "umb") {
+        if (
+          drop.x < windowWidth / 2 + 130 &&
+          drop.x > windowWidth / 2 - 130 &&
+          drop.y > windowHeight - windowHeight / 3
+        ) {
+          continue;
+        } else drop.render();
+      } else {
+        drop.render();
+      }
     }
   }
   for (let i = 0; i < max_planets; i++) {
     planets[i].move();
     planets[i].render();
+  }
+  if (backgroundMode == "umb") {
+    fill(0);
+    beginShape();
+    vertex(windowWidth / 2 - 10, windowHeight);
+    vertex(windowWidth / 2 - 10, windowHeight - windowHeight / 4);
+    vertex(windowWidth / 2 - 130, windowHeight - windowHeight / 4);
+    vertex(windowWidth / 2 - 140, windowHeight - windowHeight / 3);
+    vertex(windowWidth / 2 - 110, windowHeight - windowHeight / 3 - 50);
+    vertex(windowWidth / 2 - 90, windowHeight - windowHeight / 3 - 70);
+    vertex(windowWidth / 2 - 40, windowHeight - windowHeight / 3 - 110);
+    vertex(windowWidth / 2 - 10, windowHeight - windowHeight / 3 - 120);
+    vertex(windowWidth / 2 + 10, windowHeight - windowHeight / 3 - 120);
+    vertex(windowWidth / 2 + 40, windowHeight - windowHeight / 3 - 110);
+    vertex(windowWidth / 2 + 90, windowHeight - windowHeight / 3 - 70);
+    vertex(windowWidth / 2 + 110, windowHeight - windowHeight / 3 - 50);
+    vertex(windowWidth / 2 + 140, windowHeight - windowHeight / 3);
+    vertex(windowWidth / 2 + 130, windowHeight - windowHeight / 4);
+    vertex(windowWidth / 2 + 10, windowHeight - windowHeight / 4);
+    vertex(windowWidth / 2 + 10, windowHeight);
+    endShape(CLOSE);
   }
 }
 
@@ -90,17 +121,17 @@ function keyPressed() {
       for (var i = 0; i < max_planets; i++) {
         planets[i].c = color(random(0, 50));
       }
-    }
-  } else if (backgroundMode == "rain") {
-    backgroundMode = "umb";
-  } else {
-    backgroundMode = "none";
-    for (var i = 0; i < max_planets; i++) {
-      planets[i].c = color(
-        random(230, 255),
-        random(230, 255),
-        random(230, 255)
-      );
+    } else if (backgroundMode == "rain") {
+      backgroundMode = "umb";
+    } else if (backgroundMode == "umb") {
+      backgroundMode = "none";
+      for (var i = 0; i < max_planets; i++) {
+        planets[i].c = color(
+          random(230, 255),
+          random(230, 255),
+          random(230, 255)
+        );
+      }
     }
   }
 }
