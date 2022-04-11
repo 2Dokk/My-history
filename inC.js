@@ -11,33 +11,33 @@ function Planet(x, y, vx, vy, sz, c) {
   this.vy = vy;
   this.sz = sz;
   this.c = c;
-  this.move = function() {
+  this.move = function () {
     this.x += this.vx;
     this.y += this.vy;
-  if (this.x<0 || this.x>windowWidth) this.vx = - this.vx;
-if (this.y<0 || this.y>windowHeight)     this.vy = -this.vy;
-if (this.y<10) this.y = 3
-}
-this.render = function() {
-noStroke();
-fill(this.c);
-ellipse(this.x, this.y, this.sz, this.sz);
-}
+    if (this.x < 0 || this.x > windowWidth) this.vx = -this.vx;
+    if (this.y < 0 || this.y > windowHeight) this.vy = -this.vy;
+    if (this.y < 10) this.y = 3;
+  };
+  this.render = function () {
+    noStroke();
+    fill(this.c);
+    ellipse(this.x, this.y, this.sz, this.sz);
+  };
 }
 
-class rainDrop{
-  constructor(x,y,vy,sz,c){
+class rainDrop {
+  constructor(x, y, vy, sz, c) {
     this.x = x;
     this.y = y;
     this.vy = vy;
     this.sz = sz;
     this.c = c;
   }
-  move(){
+  move() {
     this.y += this.vy;
     if (this.y > windowHeight) this.y = 0;
   }
-  render(){
+  render() {
     noStroke();
     fill(this.c);
     ellipse(this.x, this.y, 2, this.sz);
@@ -46,47 +46,61 @@ class rainDrop{
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  for (let i=0; i<max_planets; i++) {
+  for (let i = 0; i < max_planets; i++) {
     planets[i] = new Planet(
-    random(0, windowWidth), random(0, windowHeight), random(-3, 3), random(-1, -3),
-random(50, 200), color(random(230,255),random(230,255) ,random(230,255)) );
-}
-  for (let i = 0; i < max_rainDrops; i++){
+      random(0, windowWidth),
+      random(0, windowHeight),
+      random(-3, 3),
+      random(-1, -3),
+      random(50, 200),
+      color(random(230, 255), random(230, 255), random(230, 255))
+    );
+  }
+  for (let i = 0; i < max_rainDrops; i++) {
     rainDrops[i] = new rainDrop(
-      random(0,windowWidth), random(0, windowHeight), random(30,100), random(30,100), color(random(100,255)));
+      random(0, windowWidth),
+      random(0, windowHeight),
+      random(30, 100),
+      random(30, 100),
+      color(random(100, 255))
+    );
   }
 }
 
 function draw() {
-  if (backgroundMode == "none"){
-    background(163,230,250);
+  if (backgroundMode == "none") {
+    background(163, 230, 250);
   } else {
     background(50);
-    for (let drop of rainDrops){
+    for (let drop of rainDrops) {
       drop.move();
       drop.render();
     }
   }
-  for (let i=0; i<max_planets; i++) {
+  for (let i = 0; i < max_planets; i++) {
     planets[i].move();
     planets[i].render();
   }
 }
 
-function keyPressed(){
-  if (keyCode === ENTER){
-    if (backgroundMode == "none"){
+function keyPressed() {
+  if (keyCode === ENTER) {
+    if (backgroundMode == "none") {
       backgroundMode = "rain";
-      for (var i = 0; i<max_planets; i++){
-      planets[i].c = color(random(0,50));
-  }
-    } 
-    } else if(backgroundMode == "rain"){
-      backgroundMode = "umb";
-    } else{
-      backgroundMode = "none";
-      for (var i = 0; i< max_planets; i++){
-        planets[i].c = color(random(230,255),random(230,255) ,random(230,255));
+      for (var i = 0; i < max_planets; i++) {
+        planets[i].c = color(random(0, 50));
       }
     }
+  } else if (backgroundMode == "rain") {
+    backgroundMode = "umb";
+  } else {
+    backgroundMode = "none";
+    for (var i = 0; i < max_planets; i++) {
+      planets[i].c = color(
+        random(230, 255),
+        random(230, 255),
+        random(230, 255)
+      );
+    }
+  }
 }
