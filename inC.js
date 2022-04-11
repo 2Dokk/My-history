@@ -1,4 +1,4 @@
-const max_planets = 100;
+const max_planets = 200;
 const max_rainDrops = 500;
 let planets = [];
 let rainDrops = [];
@@ -12,7 +12,6 @@ function Planet(x, y, vx, vy, sz, c) {
   this.sz = sz;
   this.c = c;
   this.move = function() {
-// uniform velocity motion s_next = s_prev + v*t
     this.x += this.vx;
     this.y += this.vy;
   if (this.x<0 || this.x>windowWidth) this.vx = - this.vx;
@@ -49,7 +48,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   for (let i=0; i<max_planets; i++) {
     planets[i] = new Planet(
-    random(0, windowWidth), random(0, windowHeight), random(-3, 3), random(-3, 3),
+    random(0, windowWidth), random(0, windowHeight), random(-3, 3), random(-1, -3),
 random(50, 200), color(random(230,255),random(230,255) ,random(230,255)) );
 }
   for (let i = 0; i < max_rainDrops; i++){
@@ -71,12 +70,23 @@ function draw() {
   for (let i=0; i<max_planets; i++) {
     planets[i].move();
     planets[i].render();
-}
-  if (mouseIsPressed === true){
-    backgroundMode = "rain";
-    for (var i = 0; i<max_planets; i++){
-      planets[i].c = color(40);
-    
-    }
   }
+}
+
+function keyPressed(){
+  if (keyCode === ENTER){
+    if (backgroundMode == "none"){
+      backgroundMode = "rain";
+      for (var i = 0; i<max_planets; i++){
+      planets[i].c = color(random(0,50));
+  }
+    } 
+    } else if(backgroundMode == "rain"){
+      backgroundMode = "umb";
+    } else{
+      backgroundMode = "none";
+      for (var i = 0; i< max_planets; i++){
+        planets[i].c = color(random(230,255),random(230,255) ,random(230,255));
+      }
+    }
 }
