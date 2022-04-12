@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-const CreateTweet = ({tweets, setTextInput, setTweets, textInput}) => {
+const CreateTweet = ({ tweets, setTextInput, setTweets, textInput }) => {
   const userInputHandler = (event) => {
     setTextInput(event.target.value);
   };
   const submitTweetHandler = (event) => {
     event.preventDefault();
-    setTweets([...tweets, textInput]);
+    setTweets([...tweets, { message: textInput, id: uuidv4() }]);
     setTextInput("");
   };
   return (
