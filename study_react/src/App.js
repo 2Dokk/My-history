@@ -8,6 +8,9 @@ function App() {
   const [textInput, setTextInput] = useState("");
   const [tweets, setTweets] = useState([]);
   const message = "Hello";
+  useEffect(() => {
+    
+  }, [textInput]);
   return (
     <div>
       <div className="box">
