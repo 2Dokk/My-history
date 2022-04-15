@@ -2,6 +2,7 @@ var volhistory = [];
 let mic, fft;
 let colorArray = [];
 let condArray = [];
+let spectArray = [];
 let mode = "volume";
 
 function setup() {
@@ -61,6 +62,24 @@ if (vol> 0.1) {
   }
 } else if(mode == "frequency"){
   let spectrum = fft.analyze();
+  let index = spectrum.lastIndexOf(1);
+  if (index/255> 3){
+    spectArray.push("red");
+  } else if (index/225 > 2){
+    spectArray.push("green");
+  } else{
+    spectArray.push("blue");
+  }
+  if (spectArray.includes("red")) {
+    fill(index, 0, 250 - index);
+  } else if (spectArray.includes("green")) {
+    fill(0, index,250-index);
+  } else {
+    fill(0,0,index%255);
+  }
+  if (spectArray.length > 20) {
+    spectArray.shift();
+  }
   ellipse(width / 2, height / 2,200,200);
   }
 }
