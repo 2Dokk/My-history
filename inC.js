@@ -16,26 +16,29 @@ function draw() {
   volhistory.push(vol);
   noStroke();
   print(vol);
-  if (vol>0.01){
-    colorArray.push(map(vol,0.001,0.01,100,255));
+  if (vol > 0.01) {
+    colorArray.push(map(vol, 0.0001, 0.001, 50, 255));
     condArray.push("blue");
-  } else if(vol > 0.1){
-            colorArray.push(map(vol,0.01,0.1,100,255));
+  } else if (vol > 0.1) {
+    colorArray.push(map(vol, 0.001, 0.01, 50, 255));
     condArray.push("green");
-            }else if(1){
-                     colorArray.push(map(vol,0.1,1,100,255));
-              condArray.push("red");
-                     }
-  if (condArray.includes("red")){
-     let index = condArray.indexOf("red");
-    fill(colorArray[index],0,0);
-     fill(0,Math.max(...colorArray),Math.max(...colorArray));
-  } else if (condArray.includes("green")){
+  } else if (vol> 1) {
+    colorArray.push(map(vol, 0.01, 0.1, 50, 255));
+    condArray.push("red");
+  }
+  if (condArray.includes("red")) {
+    let index = condArray.indexOf("red");
+    fill(colorArray[index], 0, 0);
+    print("red");
+  } else if (condArray.includes("green")) {
     let index = condArray.indexOf("green");
-    fill(0,colorArray[index],0);
-    fill(0,Math.max(...colorArray),Math.max(...colorArray));  
-             } else { fill(0,0,Math.max(...colorArray));
-}
+    fill(0, colorArray[index], 0);
+    print("green");
+  } else {
+      let index = condArray.indexOf("blue");
+    fill(0,0,colorArray[index]);
+    print("blue");
+  }
   translate(width / 2, height / 2);
   beginShape();
   for (var i = 0; i < 360; i++) {
@@ -49,11 +52,11 @@ function draw() {
   if (volhistory.length > 360) {
     volhistory.splice(0, 1);
   }
-  
-  if (colorArray.length > 40) {
+
+  if (colorArray.length > 30) {
     colorArray.shift();
   }
-    if (condArray.length > 40) {
+  if (condArray.length > 30) {
     condArray.shift();
   }
 }
