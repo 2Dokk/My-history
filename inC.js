@@ -1,38 +1,19 @@
-// Daniel Shiffman
-// http://codingtra.in
-// http://patreon.com/codingtrain
-// Code for: https://youtu.be/h_aTgOl9J5I
-
-var song;
 var amp;
-var button;
-
 var volhistory = [];
 
-function toggleSong() {
-  if (song.isPlaying()) {
-    song.pause();
-  } else {
-    song.play();
-  }
-}
-
-function preload() {
-  song = loadSound('this-dot-kp.mp3');
-}
 
 function setup() {
-  createCanvas(200, 200);
+  createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
-  button = createButton('toggle');
-  button.mousePressed(toggleSong);
-  song.play();
+  mic = new p5.AudioIn();
+  mic.start();
+  
   amp = new p5.Amplitude();
 }
 
 function draw() {
   background(0);
-  var vol = amp.getLevel();
+  var vol = mic.getLevel();
   volhistory.push(vol);
   stroke(255);
   noFill();
@@ -41,8 +22,8 @@ function draw() {
   beginShape();
   for (var i = 0; i < 360; i++) {
     var r = map(volhistory[i], 0, 1, 10, 100);
-    var x = r * cos(i);
-    var y = r * sin(i);
+    var x = r * cos(i) * 10;
+    var y = r * sin(i)* 10;
     vertex(x, y);
   }
   endShape();
@@ -50,5 +31,4 @@ function draw() {
   if (volhistory.length > 360) {
     volhistory.splice(0, 1);
   }
-  //ellipse(100, 100, 200, vol * 200);
 }
