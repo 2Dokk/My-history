@@ -16,27 +16,27 @@ function draw() {
   volhistory.push(vol);
   noStroke();
   print(vol);
-  if (vol > 0.01) {
-    colorArray.push(map(vol, 0.0001, 0.001, 50, 255));
-    condArray.push("blue");
-  } else if (vol > 0.1) {
-    colorArray.push(map(vol, 0.001, 0.01, 50, 255));
-    condArray.push("green");
-  } else if (vol> 1) {
-    colorArray.push(map(vol, 0.01, 0.1, 50, 255));
+  if (vol > 0.1) {
+    colorArray.push(map(vol, 0.01, 0.3, 50, 255));
     condArray.push("red");
+  } else if (vol > 0.01) {
+    colorArray.push(map(vol, 0.001, 0.1, 50, 255));
+    condArray.push("green");
+  } else if (vol > 0.001) {
+    colorArray.push(map(vol, 0.0001, 0.01, 50, 255));
+    condArray.push("blue");
   }
   if (condArray.includes("red")) {
     let index = condArray.indexOf("red");
-    fill(colorArray[index], 0, 0);
+    fill(colorArray[index], 0, 250 - colorArray[index]);
     print("red");
   } else if (condArray.includes("green")) {
     let index = condArray.indexOf("green");
-    fill(0, colorArray[index], 0);
+    fill(0, colorArray[index], 250 - colorArray[index]);
     print("green");
   } else {
-      let index = condArray.indexOf("blue");
-    fill(0,0,colorArray[index]);
+    let index = condArray.indexOf("blue");
+    fill(0, 0, colorArray[index]);
     print("blue");
   }
   translate(width / 2, height / 2);
@@ -53,10 +53,10 @@ function draw() {
     volhistory.splice(0, 1);
   }
 
-  if (colorArray.length > 30) {
+  if (colorArray.length > 20) {
     colorArray.shift();
   }
-  if (condArray.length > 30) {
+  if (condArray.length > 20) {
     condArray.shift();
   }
 }
