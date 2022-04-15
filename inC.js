@@ -1,5 +1,5 @@
 var volhistory = [];
-let mic;
+let mic, fft;
 let colorArray = [];
 let condArray = [];
 let mode = "volume";
@@ -65,7 +65,6 @@ if (vol> 0.1) {
   }
 } else if(mode == "frequency"){
   let spectrum = fft.analyze();
-  print(spectrum.length);
   ellipse(width / 2, height / 2,200,200);
   }
 }
