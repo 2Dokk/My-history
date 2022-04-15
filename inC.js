@@ -19,7 +19,6 @@ function draw() {
   var vol = mic.getLevel();
   volhistory.push(vol);
   noStroke();
-  print(vol);
 if (vol> 0.1) {
     colorArray.push(map(vol, 0.01, 0.3, 50, 255));
     condArray.push("red");
@@ -33,15 +32,12 @@ if (vol> 0.1) {
   if (condArray.includes("red")) {
     let index = condArray.indexOf("red");
     fill(colorArray[index], 0, 250 - colorArray[index]);
-    print("red");
   } else if (condArray.includes("green")) {
     let index = condArray.indexOf("green");
     fill(0, colorArray[index],250- colorArray[index]);
-    print("green");
   } else {
       let index = condArray.indexOf("blue");
     fill(0,0,colorArray[index]);
-    print("blue");
   }
   translate(width / 2, height / 2);
   beginShape();
