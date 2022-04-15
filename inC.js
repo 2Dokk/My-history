@@ -1,136 +1,54 @@
-const max_vapors = 1000;
-const max_rainDrops = 500;
-let vapors = [];
-let rainDrops = [];
+// Daniel Shiffman
+// http://codingtra.in
+// http://patreon.com/codingtrain
+// Code for: https://youtu.be/h_aTgOl9J5I
 
-let backgroundMode = "none";
-function vapor(x, y, vx, vy, sz, c) {
-  this.x = x;
-  this.y = y;
-  this.vx = vx;
-  this.vy = vy;
-  this.sz = sz;
-  this.c = c;
-  this.move = function () {
-    this.x += this.vx;
-    this.y += this.vy;
-    if (this.x < 0 || this.x > windowWidth) this.vx = -this.vx;
-    if (this.y < 10) this.y = 3;
-  };
-  this.render = function () {
-    noStroke();
-    fill(this.c);
-    ellipse(this.x, this.y, this.sz, this.sz);
-  };
+var song;
+var amp;
+var button;
+
+var volhistory = [];
+
+function toggleSong() {
+  if (song.isPlaying()) {
+    song.pause();
+  } else {
+    song.play();
+  }
 }
 
-class rainDrop {
-  constructor(x, y, vy, sz, c) {
-    this.x = x;
-    this.y = y;
-    this.vy = vy;
-    this.sz = sz;
-    this.c = c;
-  }
-  move() {
-    this.y += this.vy;
-    if (this.y > windowHeight) this.y = 0;
-  }
-  render() {
-    noStroke();
-    fill(this.c);
-    ellipse(this.x, this.y, 2, this.sz);
-  }
+function preload() {
+  song = loadSound('this-dot-kp.mp3');
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  for (let i = 0; i < max_vapors; i++) {
-    vapors[i] = new vapor(
-      random(0, windowWidth),
-      random(0, windowHeight),
-      random(-3, 3),
-      random(-1, -3),
-      random(50, 200),
-      color(random(230, 255), random(230, 255), random(230, 255))
-    );
-  }
-  for (let i = 0; i < max_rainDrops; i++) {
-    rainDrops[i] = new rainDrop(
-      random(0, windowWidth),
-      random(0, windowHeight),
-      random(30, 100),
-      random(30, 100),
-      color(random(100, 255))
-    );
-  }
+  createCanvas(200, 200);
+  angleMode(DEGREES);
+  button = createButton('toggle');
+  button.mousePressed(toggleSong);
+  song.play();
+  amp = new p5.Amplitude();
 }
 
 function draw() {
-  if (backgroundMode == "none") {
-    background(163, 230, 250);
-  } else {
-    background(50);
-    for (let drop of rainDrops) {
-      drop.move();
-      if (backgroundMode == "umb") {
-        if (
-          drop.x < windowWidth / 2 + 130 &&
-          drop.x > windowWidth / 2 - 130 &&
-          drop.y > windowHeight - windowHeight / 3
-        ) {
-          continue;
-        } else drop.render();
-      } else {
-        drop.render();
-      }
-    }
-  }
-  for (let i = 0; i < max_vapors; i++) {
-    vapors[i].move();
-    vapors[i].render();
-  }
-  if (backgroundMode == "umb") {
-    fill(0);
-    beginShape();
-    vertex(windowWidth / 2 - 10, windowHeight);
-    vertex(windowWidth / 2 - 10, windowHeight - windowHeight / 4);
-    vertex(windowWidth / 2 - 130, windowHeight - windowHeight / 4);
-    vertex(windowWidth / 2 - 140, windowHeight - windowHeight / 3);
-    vertex(windowWidth / 2 - 110, windowHeight - windowHeight / 3 - 50);
-    vertex(windowWidth / 2 - 90, windowHeight - windowHeight / 3 - 70);
-    vertex(windowWidth / 2 - 40, windowHeight - windowHeight / 3 - 110);
-    vertex(windowWidth / 2 - 10, windowHeight - windowHeight / 3 - 120);
-    vertex(windowWidth / 2 + 10, windowHeight - windowHeight / 3 - 120);
-    vertex(windowWidth / 2 + 40, windowHeight - windowHeight / 3 - 110);
-    vertex(windowWidth / 2 + 90, windowHeight - windowHeight / 3 - 70);
-    vertex(windowWidth / 2 + 110, windowHeight - windowHeight / 3 - 50);
-    vertex(windowWidth / 2 + 140, windowHeight - windowHeight / 3);
-    vertex(windowWidth / 2 + 130, windowHeight - windowHeight / 4);
-    vertex(windowWidth / 2 + 10, windowHeight - windowHeight / 4);
-    vertex(windowWidth / 2 + 10, windowHeight);
-    endShape(CLOSE);
-  }
-}
+  background(0);
+  var vol = amp.getLevel();
+  volhistory.push(vol);
+  stroke(255);
+  noFill();
 
-function keyPressed() {
-  if (keyCode === ENTER) {
-    if (backgroundMode == "none") {
-      backgroundMode = "rain";
-      for (var i = 0; i < max_vapors; i++) {
-        vapors[i].c = color(random(0, 50));
-      }
-    } else if (backgroundMode == "rain") {
-      backgroundMode = "umb";
-    } else if (backgroundMode == "umb") {
-      backgroundMode = "none";
-      for (var i = 0; i < max_vapors; i++) {
-        vapors[i].c = color(
-          random(230, 255),
-          random(230, 255),
-          random(230, 255)
-        );
-      }
-    }
+  translate(width / 2, height / 2);
+  beginShape();
+  for (var i = 0; i < 360; i++) {
+    var r = map(volhistory[i], 0, 1, 10, 100);
+    var x = r * cos(i);
+    var y = r * sin(i);
+    vertex(x, y);
   }
+  endShape();
+
+  if (volhistory.length > 360) {
+    volhistory.splice(0, 1);
+  }
+  //ellipse(100, 100, 200, vol * 200);
 }
