@@ -83,13 +83,3 @@ if (vol> 0.1) {
   ellipse(width / 2, height / 2,200,200);
   }
 }
-
-function keyPressed() {
-  if (keyCode === ENTER){
-    if (mode == "volume"){
-      mode = "frequency";
-    } else {
-      mode = "volume";
-    }
-  }
-}
