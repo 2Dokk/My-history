@@ -7,8 +7,9 @@ let szH = 30;
 let szW = 10;
 let number = 20;
 let r, g, b;
-let snowColor = "none";
+let snowColor = "snow";
 let snowMode = "none";
+let inputVoice = [];
 
 let Rs, Gs, Bs, R, G, B;
 
@@ -53,6 +54,10 @@ function setup() {
   button1 = createButton("CLEAR");
   button1.size(100, 50);
   button1.position(windowWidth - 100, windowHeight - 50);
+  
+  button2 = createButton("SNOW");
+  button2.size(100, 50);
+  button2.position(0, windowHeight - 50);
 
   /*
   button2 = createButton("COLOR");
@@ -71,7 +76,7 @@ function draw() {
   let vol = mic.getLevel();
   let spectrum = fft.analyze();
 
-  print(spectrum);
+  //print(spectrum);
 
   if (flower.length == 0) {
     i = 0;
@@ -80,9 +85,9 @@ function draw() {
     szH += 30;
     szW += 5;
     number += 20;
-    Rs = random(0, 150);
+    Rs = random(200, 255);
     Gs = random(0, 150);
-    Bs = random(0, 150);
+    Bs = random(200, 225);
 
     //set size
   } else i = flower.length;
@@ -109,7 +114,8 @@ function draw() {
   ellipse(0, 0, 20, 20);
   pop();
 
-  fill(255);
+  if (snowColor == "cherry") fill(255, 200, 200);
+  else fill(255);
   noStroke();
 
   for (let y = 0; y < height; y += 10) {
@@ -119,12 +125,14 @@ function draw() {
   }
 
   button1.mouseClicked(flowerClear);
+  button2.mouseClicked(changeSnowMode);
+  
   if (snowMode == "start") {
     let result = 1000;
     let saveIndex = [];
     let savePoint = [];
     let indexValue = [];
-    let inputVoice = [];
+    
     let checkIncline = true;
     let count = 0;
 
@@ -163,16 +171,18 @@ function draw() {
         result = abs(saveIndex[i] - saveIndex[i - 1]);
       }
     }
+    print(result);
     inputVoice.push(result);
     if (inputVoice.length > 30) {
       snowMode = "none";
+      print(inputVoice);
     }
     inputVoice.map((item) => {
-      if (item > 8) {
+      if (item >= 8) {
         count++;
       }
     });
-    if (count > 5) {
+    if (count >= 5) {
       snowColor = "snow";
     } else {
       snowColor = "cherry";
@@ -186,6 +196,11 @@ function flowerClear() {
   szW = 10;
   number = 20;
   angle = 360;
+}
+
+function changeSnowMode() {
+  snowMode = "start";
+  inputVoice = [];
 }
 
 function setGradient(c1, c2) {
