@@ -7,22 +7,25 @@ let color;
 let szH = 30;
 let szW = 10;
 let number = 20;
+let r,g,b;
 
 let flowers = [];
 let flower = [];
 class petal {
-  constructor(x, y, szw, szh, color, angle) {
+  constructor(x, y, szw, szh, r,g,b, angle) {
     this.x = x;
     this.y = y;
     this.szw = szw;
     this.szh = szh;
-    this.color = color;
     this.angle = angle;
+    this.r = r;
+    this.g = g;
+    this.b = b;
   }
 
   render() {
     noStroke();
-    fill(this.color);
+    fill(this.r,this.g,this.b);
     push();
     rotate(this.angle);
     ellipse(this.x, this.y, this.szw, this.szh);
@@ -62,20 +65,15 @@ function draw() {
   } else i = flower.length;
   var sz = map(vol, 0, 0.3, szH, szH + 20);
   var y = -szH / 2;
-  
+
   //set color
   let index = spectrum.lastIndexOf(1);
   if (index / 255 > 3) {
-    flower[i] = new petal(0, y, szW, sz, (index, 0, 250 - index), angle);    flower[i].color = (index % 255, 0, 250 - index % 255);
-    print(flower[i].color);
+    flower[i] = new petal(0, y, szW, sz,index % 255, 0,250 - (index % 255) , angle);
   } else if (index / 225 > 2) {
-    flower[i] = new petal(0, y, szW, sz, 0, angle);
-    flower[i].color = (0, index % 255, 250 - index % 255);
-    print(flower[i].color);
+    flower[i] = new petal(0, y, szW, sz, 0, index % 255, 250 - (index % 255) , angle);
   } else {
-    flower[i] = new petal(0, y, szW, sz, (0, 0, index % 255), angle);
-    flower[i].color = (0, 0, index % 255);
-    print(flower[i].color);
+    flower[i] = new petal(0, y, szW, sz, 0, 0, index % 255 , angle);
   }
   angle += ((360 / number) * szW) / 10;
   if (angle > 360) {
@@ -84,7 +82,6 @@ function draw() {
   for (let l = flowers.length - 1; l >= 0; l--)
     for (let flo of flowers[l]) {
       flo.render();
-      //print(flo.color);
     }
   noStroke();
   fill(255, 255, 0);
