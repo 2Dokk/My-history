@@ -4,7 +4,6 @@ let fft;
 let i;
 let angle = 0;
 let color;
-let randB;
 let szH = 30;
 let szW = 10;
 let number = 20;
@@ -48,32 +47,32 @@ function setup() {
 function draw() {
   push();
   translate(windowWidth / 2, windowHeight / 2);
-  background(0);
+  background(220);
   var vol = mic.getLevel();
   var spectrum = fft.analyze();
 
   if (flower.length == 0) {
     i = 0;
     angle = 0;
-    randR = random(0, 255);
-    randB = random(0, 255);
-    randG1 = random(50, 80);
-    randG2 = random(235, 255);
     flowers[flowers.length] = flower;
     szH += 30;
     szW += 5;
     number += 20;
+    //set size
   } else i = flower.length;
   var sz = map(vol, 0, 0.3, szH, szH + 20);
   var y = -szH / 2;
+  
   //set color
   let index = spectrum.lastIndexOf(1);
   if (index / 255 > 3) {
-    flower[i] = new petal(0, y, szW, sz, (index, 0, 250 - index), angle);
+    flower[i] = new petal(0, y, szW, sz, (index, 0, 250 - index), angle);    flower[i].col = (0, index, 250 - index);
   } else if (index / 225 > 2) {
-    flower[i] = new petal(0, y, szW, sz, (0, index, 250 - index), angle);
+    flower[i] = new petal(0, y, szW, sz, 0, angle);
+    flower[i].col = (0, index, 250 - index);
   } else {
     flower[i] = new petal(0, y, szW, sz, (0, 0, index % 255), angle);
+        flower[i].col = (0, 0, index % 255);
   }
   angle += ((360 / number) * szW) / 10;
   if (angle > 360) {
@@ -82,9 +81,9 @@ function draw() {
   for (let l = flowers.length - 1; l >= 0; l--)
     for (let flo of flowers[l]) {
       flo.render();
+      print(flo.col);
     }
   noStroke();
   fill(255, 255, 0);
   ellipse(0, 0, 20, 20);
-  pop();
 }
