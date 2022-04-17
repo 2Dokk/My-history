@@ -65,16 +65,16 @@ function draw() {
     number += 20;
     //set size
   } else i = flower.length;
-  if (vol> 0.1) {
-    sz = map(vol, 0.01, 0.3, szH+setSize*2, szH + setSize*3);
+  if (vol > 0.1) {
+    sz = map(vol, 0.01, 0.3, szH + setSize * 2, szH + setSize * 3);
     print(sz);
-  }else if (vol > 0.01) {
-    sz = map(vol, 0.001, 0.1, szH+setSize, szH + setSize*2);
+  } else if (vol > 0.01) {
+    sz = map(vol, 0.001, 0.1, szH + setSize, szH + setSize * 2);
     print(sz);
   } else if (vol > 0.001) {
     sz = map(vol, 0.0001, 0.01, szH, szH + setSize);
     print(sz);
-  } 
+  }
   var y = -szH / 2;
 
   //set color
@@ -117,4 +117,3 @@ function draw() {
   ellipse(0, 0, 20, 20);
   pop();
 }
-
