@@ -1,43 +1,77 @@
 #include <stdio.h>
 
-int Add(int a, int b);
-int Sub(int a, int b);
-int Mul(int a, int b);
-float Div(int a, int b);
+void Celsius();
+void GetCelsius(float* a);
+float CelsiustoFahrenheit(float a);
+void PrintCelsius(float a);
+
+void Fahrenheit();
+void GetFahrenheit(float* a);
+float FahrenheittoCelsius(float a);
+void PrintFahrenheit(float a);
 
 int main(void)
 {
-	int num1, num2;
-
-	printf("First num : ");
-	scanf("%d", &num1);
-	printf("Second num : ");
-	scanf("%d", &num2);
-
-	printf("Add : %d\n", Add(num1, num2));
-	printf("Sub : %d\n", Sub(num1, num2));
-	printf("Mul : %d\n", Mul(num1, num2));
-	printf("Div : %f\n", Div(num1, num2));
+	Celsius();
+	Fahrenheit();
 
 	return 0;
 }
 
-int Add(int a, int b)
+void Celsius()
 {
-	return a + b;
+	float Ctemp, Ftemp;
+
+	GetCelsius(&Ctemp);
+	Ftemp = CelsiustoFahrenheit(Ctemp);
+	PrintCelsius(Ftemp);
+	
+	return;
 }
 
-int Sub(int a, int b)
+void GetCelsius(float* a)
 {
-	return a - b;
+	printf("\n���� �µ��� �Է��Ͻÿ� : ");
+	scanf("%f", a);
+	return;
 }
 
-int Mul(int a, int b)
+float CelsiustoFahrenheit(float a)
 {
-	return a * b;
+	return a * 9.0f / 5.0f + 32.0f;
 }
 
-float Div(int a, int b)
+void PrintCelsius(float a)
 {
-	return (float)a / (float)b;
+	printf("ȭ�� �µ��� %.2f �Դϴ�\n", a);
+	return;
+}
+
+void Fahrenheit()
+{
+	float Ftemp, Ctemp;
+
+	GetFahrenheit(&Ftemp);
+	Ctemp = FahrenheittoCelsius(Ftemp);
+	PrintFahrenheit(Ctemp);
+
+	return;
+}
+
+void GetFahrenheit(float* a)
+{
+	printf("\nȭ�� �µ��� �Է��Ͻÿ� : ");
+	scanf("%f", a);
+	return;
+}
+
+float FahrenheittoCelsius(float a)
+{
+	return (a - 32.0f) * 5.0f / 9.0f;
+}
+
+void PrintFahrenheit(float a)
+{
+	printf("���� �µ��� %.2f �Դϴ�\n", a);
+	return;
 }
