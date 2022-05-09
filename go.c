@@ -1,15 +1,20 @@
 #include <stdio.h>
+int *reverse_array(int *original, int length);
+int main(void){
+	int length = 0;
+	int input;
+	int original[20];
+	printf("Enter a sequence of positive integers.\n");
+	do {
+		scanf("%d ",&input);
+		if (input < 1){
+			break;	
+		}
+		original[length] = input;
+		length++;
+	} while (length < 20)
+	reverse_array(&original, length);
+}
 
-int main(void) {
-
-	int num;
-	int sum = 0;
-	printf("Enter your numbers: <EOF> to stop.\n");
-	while (scanf("%d", &num) != EOF) {
-		sum += num;
-		printf("Total: %3d\n", sum);
-	}
-	printf("\n\n*** End of Program ***\n");
-	
-	return 0;
+int *reverse_array(int *original, int length){
 }
