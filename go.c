@@ -1,48 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void delete_char(char *, int num, char);
-
+int **transpose(int **matrix, int m, int n);
+void printMatrix(int **martix, int m, int n);
 int main(void){
-	char Arr[] = {'G','O','O','D','M','O','R','N','I','N','G','\0'};
-	char *ArrA = Arr; 
-	char letter;
-	printf("삭제 전 : ");
-	for (int i = 0; i < sizeof(Arr); i++){
-		printf("%c",Arr[i]);
+	int rows;
+	int cols;
+	printf("Number of Rows : ");
+	scanf("%d",&rows);
+	printf("Number of Cols : ");
+	scanf("%d",&cols);
+	srand(20211073);
+	int ** matrix = (int **)malloc(rows * sizeof(int));
+	printf("seed번호 20211073로 생성된 Matrix\n");
+	for (int i = 0; i < rows; i++){
+		*(matrix + i) = (int *)malloc(cols * sizeof(int));
 	}
-	printf("\n");
-	printf("삭제할 문자 : ");
-	scanf("%c",&letter);
-	printf("삭제 후 : ");
-	int size = sizeof(Arr);
-	delete_char(ArrA,size,letter);
-	for (int i = 0; i < size; i++){
-		printf("%c",Arr[i]);
+	for (int i = 0; i < rows; i++){
+		for (int j = 0; j < cols; j++){
+			*(*(matrix + i)+ j) = rand() % 100 + 1;
+		}
 	}
+
+	printMatrix((int**)matrix, rows, cols);
+	int ** matrix0 = transpose((int**)matrix, rows, cols);
+	printf("Transpose된 Matrix\n");
+	printMatrix((int**)matrix0, cols, rows);
+	for (int i = 0; i < rows; i++) {
+		free(matrix[i]);
+	}
+	free(matrix);
+	for (int i = 0; i < cols; i++) {
+		free(matrix0[i]);
+	}
+	free(matrix0);
 	return 0;
 }
-
-void delete_char(char *Arr, int num, char deleteC){
-	char * Arr1 = (char *)malloc(num * sizeof(char));
-	int count = 0;
-	for (int i = 0; i < num ; i ++){
-		if (Arr[i] != deleteC){
-			Arr1[i] = Arr[i];
-		} else{
-			count ++;
+int **transpose(int **matrix, int m, int n){
+	int ** trans = (int **)malloc(n * sizeof(int));
+	for (int i = 0; i < n; i++){
+		*(trans + i) = (int *)malloc(m * sizeof(int));
+	}
+	for (int i = 0; i < m; i++){
+		for (int j = 0; j < n; j++){
+			*(*(trans + j)+ i) = *(*(matrix + i)+ j);
 		}
 	}
-	int check = 0;
-	int rCheck = 0;
-	for (int k = 0; k < num; k++){
-		if (Arr1[k] == '!'){
-			Arr[num - rCheck] = Arr1[k];
-			rCheck ++;
-		} else{
-			Arr[check] = Arr1[k];
-			check ++;
+	return (int**)trans;
+}
+void printMatrix(int **matrix, int m, int n){
+	for (int i = 0; i < m; i++){
+		for (int j = 0; j < n; j++){
+			printf("%d ",*(*(matrix + i)+ j));
 		}
+		printf("\n");
 	}
-	free(Arr1);
 }
