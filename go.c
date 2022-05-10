@@ -1,35 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
-int *reverse_array(int *original, int length);
+
+void delete_char(char *, int num, char);
+
 int main(void){
-	int length = 0;
-	int input;
-	int original[20];
-	int *O = original;
-	printf("Enter a sequence of positive integers.\n");
-	scanf("%d",&input);
-	original[length] = input;
-	while(length < 20){
-		scanf(" %d",&input);
-		if (input < 1){
-			break;
-		}
-		length++;
-		original[length] = input;
+	char Arr[] = {'G','O','O','D','M','O','R','N','I','N','G','\0'};
+	char *ArrA = Arr; 
+	char letter;
+	printf("삭제 전 : ");
+	for (int i = 0; i < sizeof(Arr); i++){
+		printf("%c",Arr[i]);
 	}
-	int *p = reverse_array(O, length);
-	for (int i = 0; i < length + 1; i ++){
-		printf("%d ", *(p+i));
+	printf("\n");
+	printf("삭제할 문자 : ");
+	scanf("%c",&letter);
+	printf("삭제 후 : ");
+	int size = sizeof(Arr);
+	delete_char(ArrA,size,letter);
+	for (int i = 0; i < size; i++){
+		printf("%c",Arr[i]);
 	}
+	return 0;
 }
-int *reverse_array(int *original, int length){
-	int * copy = (int *)malloc((length+1) * sizeof(int));
-	if (copy == NULL){
-		printf("malloc failed");
-	};
-	for (int i = 0; i < length+1; i++){
-		copy[i] = *(original + (length - i));
+
+void delete_char(char *Arr, int num, char deleteC){
+	char * Arr1 = (char *)malloc(num * sizeof(char));
+	int count = 0;
+	for (int i = 0; i < num ; i ++){
+		if (Arr[i] != deleteC){
+			Arr1[i] = Arr[i];
+		} else{
+			count ++;
+		}
 	}
-	free(copy);
-	return copy;
+	int check = 0;
+	int rCheck = 0;
+	for (int k = 0; k < num; k++){
+		if (Arr1[k] == '!'){
+			Arr[num - rCheck] = Arr1[k];
+			rCheck ++;
+		} else{
+			Arr[check] = Arr1[k];
+			check ++;
+		}
+	}
+	free(Arr1);
 }
