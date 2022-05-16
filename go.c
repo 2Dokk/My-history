@@ -1,58 +1,40 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-int **transpose(int **matrix, int m, int n);
-void printMatrix(int **martix, int m, int n);
 int main(void){
-	int rows;
-	int cols;
-	printf("Number of Rows : ");
-	scanf("%d",&rows);
-	printf("Number of Cols : ");
-	scanf("%d",&cols);
-	srand(20211073);
-	int ** matrix = (int **)malloc(rows * sizeof(int));
-	printf("seed번호 20211073로 생성된 Matrix\n");
-	for (int i = 0; i < rows; i++){
-		*(matrix + i) = (int *)malloc(cols * sizeof(int));
-	}
-	for (int i = 0; i < rows; i++){
-		for (int j = 0; j < cols; j++){
-			*(*(matrix + i)+ j) = rand() % 100 + 1;
-		}
+	FILE *inFp, *outFp;
+	char name[20];
+	int age; double height; int state;
+	double averageHeight = 0; 
+	int averageAge = 0;
+	int count = 0;
+	int input = 0;
+
+	inFp = fopen("studentIn.txt", "r");
+	if (inFp == NULL){
+		printf("input file open error! \n");
+		return 1;
 	}
 
-	printMatrix((int**)matrix, rows, cols);
-	int ** matrix0 = transpose((int**)matrix, rows, cols);
-	printf("Transpose된 Matrix\n");
-	printMatrix((int**)matrix0, cols, rows);
-	for (int i = 0; i < rows; i++) {
-		free(matrix[i]);
+	outFp = fopen("studentOut.txt","w");
+
+	if(outFp == NULL){
+		printf("output file open error! \n");
+		return 1;
 	}
-	free(matrix);
-	for (int i = 0; i < cols; i++) {
-		free(matrix0[i]);
+
+	while (1){
+		count += 1;
+		state = fscanf(inFp, "%s %d %1lf", name, &age, &height);
+		if (state == EOF) break;
+		input = fprintf(outFp, "%.1lf %d %s\n", height, age, name);
+		averageAge += age;
+		averageHeight += height;
+		printf("%d\n", input);
 	}
-	free(matrix0);
+	averageAge %= count;
+	averageHeight /= count;
+	fprintf(outFp,"Average height: %.1lf Average age: %d\n", averageHeight,averageAge);
+	fclose(inFp);
+	fclose(outFp);
 	return 0;
-}
-int **transpose(int **matrix, int m, int n){
-	int ** trans = (int **)malloc(n * sizeof(int));
-	for (int i = 0; i < n; i++){
-		*(trans + i) = (int *)malloc(m * sizeof(int));
-	}
-	for (int i = 0; i < m; i++){
-		for (int j = 0; j < n; j++){
-			*(*(trans + j)+ i) = *(*(matrix + i)+ j);
-		}
-	}
-	return (int**)trans;
-}
-void printMatrix(int **matrix, int m, int n){
-	for (int i = 0; i < m; i++){
-		for (int j = 0; j < n; j++){
-			printf("%d ",*(*(matrix + i)+ j));
-		}
-		printf("\n");
-	}
 }
