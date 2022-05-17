@@ -1,40 +1,52 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(void){
-	FILE *inFp, *outFp;
-	char name[20];
-	int age; double height; int state;
-	double averageHeight = 0; 
-	int averageAge = 0;
-	int count = 0;
-	int input = 0;
-
-	inFp = fopen("studentIn.txt", "r");
-	if (inFp == NULL){
-		printf("input file open error! \n");
+int main(void)
+{
+	FILE *fp, *outFp;
+    char ch;
+    int ct;
+	int upper = 0;
+	int lower = 0;
+	int arabic = 0;
+	int blank = 0;
+    fp = fopen("input.txt","r");//읽기 모드로 파일 열기
+	outFp = fopen("output.txt","w");
+    if(fp == NULL)
+    {
+        printf("파일 열기 실패");//에러 출력
+        return 1;
+    }
+	if (outFp == NULL){
+		printf("output file open error!\n");
 		return 1;
 	}
-
-	outFp = fopen("studentOut.txt","w");
-
-	if(outFp == NULL){
-		printf("output file open error! \n");
-		return 1;
+    while((ch = fgetc(fp)) != EOF)//무한 반복
+    {
+        if((ch>='0')&&(ch<='9'))
+    {
+        arabic++;
+    }
+    if((ch>='a')&&(ch<='z'))
+    {
+        lower++;
+    }
+    if((ch>='A')&&(ch<='Z'))
+    {
+        upper++;
+    }
+    if(ch == ' ')
+    {
+        blank++;
+    }
+    if(ch == '\n')
+    {
+		blank ++;
+    }
 	}
-
-	while (1){
-		count += 1;
-		state = fscanf(inFp, "%s %d %1lf", name, &age, &height);
-		if (state == EOF) break;
-		input = fprintf(outFp, "%.1lf %d %s\n", height, age, name);
-		averageAge += age;
-		averageHeight += height;
-		printf("%d\n", input);
-	}
-	averageAge %= count;
-	averageHeight /= count;
-	fprintf(outFp,"Average height: %.1lf Average age: %d\n", averageHeight,averageAge);
-	fclose(inFp);
+	fprintf(outFp,"Number of upper case letters : %d\nNumber of lower case letters : %d\nNumber of arabic characters : %d\nNumber of blanks : %d\n",upper, lower,arabic,blank);
+    fclose(fp);//파일 스트림 닫기
 	fclose(outFp);
-	return 0;
+    printf("Number of upper case letters : %d\nNumber of lower case letters : %d\nNumber of arabic characters : %d\nNumber of blanks : %d\n",upper, lower,arabic,blank);
+    return 0;
 }
