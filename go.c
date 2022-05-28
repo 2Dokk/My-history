@@ -1,52 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+int insertString(char* str1, char* str2, int idx);
 
 int main(void)
 {
-	FILE *fp, *outFp;
-    char ch;
-    int ct;
-	int upper = 0;
-	int lower = 0;
-	int arabic = 0;
-	int blank = 0;
-    fp = fopen("input.txt","r");//읽기 모드로 파일 열기
-	outFp = fopen("output.txt","w");
-    if(fp == NULL)
-    {
-        printf("파일 열기 실패");//에러 출력
-        return 1;
+    char buf[1000] = "Necessity is the Mother of Invention.";
+    char buff[500];
+    char * str1 = buf;
+    char * str2 = buff;
+    int index;
+    printf("This program inserts a string to a specific position you want.\n\n");
+    printf("Original string : %s\n",str1);
+    printf("Enter a string to insert : ");
+    fgets(buff,sizeof(buff), stdin);
+    str2[strlen(str2)-1] = '\0';
+    printf("Where to do you want to insert? : ");
+    scanf("%d",&index);
+    printf("\nResult : ");
+    if (strlen(str1) < index){
+        return 0;
     }
-	if (outFp == NULL){
-		printf("output file open error!\n");
-		return 1;
-	}
-    while((ch = fgetc(fp)) != EOF)//무한 반복
-    {
-        if((ch>='0')&&(ch<='9'))
-    {
-        arabic++;
+    insertString(buf, buff, index);
+    fputs(str1, stdout);
+    return 0;
+}
+
+int insertString(char* str1, char* str2, int idx){
+    char bufff[500];
+    strncpy(bufff, str1, idx);
+    int len = strlen(str1);
+    for (int i = 0; i < (len - idx); i ++){
+        str1[i] = str1[i + idx];
     }
-    if((ch>='a')&&(ch<='z'))
-    {
-        lower++;
+    str1[len - idx] = '\0';
+    strcat(bufff, str2);
+    strcat(bufff, str1);
+    for(int i = 0 ; i< strlen(bufff);i++){
+        str1[i] = bufff[i];
     }
-    if((ch>='A')&&(ch<='Z'))
-    {
-        upper++;
-    }
-    if(ch == ' ')
-    {
-        blank++;
-    }
-    if(ch == '\n')
-    {
-		blank ++;
-    }
-	}
-	fprintf(outFp,"Number of upper case letters : %d\nNumber of lower case letters : %d\nNumber of arabic characters : %d\nNumber of blanks : %d\n",upper, lower,arabic,blank);
-    fclose(fp);//파일 스트림 닫기
-	fclose(outFp);
-    printf("Number of upper case letters : %d\nNumber of lower case letters : %d\nNumber of arabic characters : %d\nNumber of blanks : %d\n",upper, lower,arabic,blank);
     return 0;
 }

@@ -1,17 +1,48 @@
-let selectedTd;
+let message = "A  River  Runs  Through  It";
 
-table.onclick = function(event) {
-  let target = event.target; // 클릭이 어디서 발생했을까요?
+let messageX;
+const xSpeed = 3;
+const ySpeed = 0.015;
+let amplitude = 100;
+const verticalLetterSpacing = 200;
+let font;
 
-  if (target.tagName != 'TD') return; // TD에서 발생한 게 아니라면 아무 작업도 하지 않습니다,
+function preload() {
+  font = loadFont("./font/AlexBrush-Regular.ttf");
+}
 
-  highlight(target); // 강조 함
-};
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  textFont(font);
 
-function highlight(td) {
-  if (selectedTd) { // 이미 강조되어있는 칸이 있다면 원상태로 바꿔줌
-    selectedTd.classList.remove('highlight');
+  messageX = width;
+}
+
+function draw() {
+  background(255);
+
+  textSize(100);
+  for (let i = 0; i < message.length; i++) {
+    const letterX = messageX + textWidth(message.substring(0, i));
+
+    const letterOffset = i * verticalLetterSpacing;
+    const letterY =
+      height / 2 + tan((frameCount - letterOffset) * ySpeed) * amplitude;
+    noStroke();
+    fill(50, 150, map(letterX, 0, windowWidth, 80, 240));
+
+    text(message[i], letterX, letterY);
   }
-  selectedTd = td;
-  selectedTd.classList.add('highlight'); // 새로운 td를 강조 함
+  if (mouseIsPressed) {
+    messageX -= xSpeed;
+  } else {
+    messageX = messageX;
+  }
+
+  if (messageX < -textWidth(message)) {
+    messageX = width + 50;
+  }
+
+  textSize(24);
+  fill(200);
 }
