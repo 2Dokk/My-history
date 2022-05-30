@@ -1,33 +1,25 @@
-var angle;
 let img;
+let smallPoint, largePoint;
 
 function preload() {
-  img = loadImage("moon.jpg");
+  img = loadImage("assets/moonwalk.jpg");
 }
+
 function setup() {
-  createCanvas(1024, 1369);
-  background(img);
+  createCanvas(720, 400);
+  smallPoint = 4;
+  largePoint = 40;
+  imageMode(CENTER);
+  noStroke();
+  background(255);
+  img.loadPixels();
 }
 
 function draw() {
-  angle = 50;
-  translate(mouseX, mouseY);
-  mindul(100);
-}
-
-function mindul(len) {
-  stroke(map(len, 100, 0, 0, 250));
-  strokeWeight(0.03);
-  line(0, 0, 0, -10);
-  translate(0, -10);
-  if (len > 10) {
-    push();
-    rotate(angle);
-    mindul(len * 0.75);
-    pop();
-    push();
-    rotate(-angle);
-    mindul(len * 0.75);
-    pop();
-  }
+  let pointillize = map(mouseX, 0, width, smallPoint, largePoint);
+  let x = floor(random(img.width));
+  let y = floor(random(img.height));
+  let pix = img.get(x, y);
+  fill(pix, 128);
+  ellipse(x, y, pointillize, pointillize);
 }
