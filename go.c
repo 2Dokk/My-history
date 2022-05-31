@@ -1,44 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-int insertString(char* str1, char* str2, int idx);
+int printPerson(struct person p);
 
-int main(void)
-{
-    char buf[1000] = "Necessity is the Mother of Invention.";
-    char buff[500];
-    char * str1 = buf;
-    char * str2 = buff;
-    int index;
-    printf("This program inserts a string to a specific position you want.\n\n");
-    printf("Original string : %s\n",str1);
-    printf("Enter a string to insert : ");
-    fgets(buff,sizeof(buff), stdin);
-    str2[strlen(str2)-1] = '\0';
-    printf("Where to do you want to insert? : ");
-    scanf("%d",&index);
-    printf("\nResult : ");
-    if (strlen(str1) < index){
-        return 0;
-    }
-    insertString(buf, buff, index);
-    fputs(str1, stdout);
-    return 0;
-}
+typedef struct{
+    char name[20];
+    char mail[20];
+    int mobile;
+} PROFESSOR;
+typedef struct{
+    char name[20];
+    char major[20];
+    int ID;
+    float cgpa;
+} STUDENT;
+typedef struct {
+    char type;
+    union {
+        PROFESSOR prof;
+        STUDENT stu;
+    }u;
+}PERSON;
+PERSON person;
 
-int insertString(char* str1, char* str2, int idx){
-    char bufff[500];
-    strncpy(bufff, str1, idx);
-    int len = strlen(str1);
-    for (int i = 0; i < (len - idx); i ++){
-        str1[i] = str1[i + idx];
-    }
-    str1[len - idx] = '\0';
-    strcat(bufff, str2);
-    strcat(bufff, str1);
-    for(int i = 0 ; i< strlen(bufff);i++){
-        str1[i] = bufff[i];
-    }
-    return 0;
+int main(void){
+    PROFESSOR person1;
+    STUDENT person2;
+    person1.name = "james";
+    person1.mail = "james@hanmail.net";
+    person1.mobile = 1097063456;
+    person2.name = "david";
+    person2.major = "conputer science";
+    person2.id = 20010123;
+    person2.cgpa = 3.10;
+};
+
+int printPerson(struct person p){
+    
 }
