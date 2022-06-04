@@ -23,7 +23,7 @@ function draw() {
   }
 
   if (state == "Loading") {
-  } else if (state == "Done") {
+    background(255);
   }
 }
 
