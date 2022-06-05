@@ -7,7 +7,7 @@ const key = "c7fbc18b56b9403485a84850220506";
 let url;
 let data;
 
-//Rainy
+//Rain
 var bdX = []; //빌딩 X위치
 var B = 0; //빌딩 위치 초기값
 var bdY = []; //빌딩 Y위치
@@ -42,19 +42,32 @@ const grandezzaFont = 180;
 const direzioneVento = 0.003;
 const lunghezzaFilamenti = 30;
 
-//
+//Snow
+let fontSnow;
+let vehicles = [];
+let texts = [region];
+let nextT = 0;
+let maxChangeForce = 20;
+let instructions = [];
+
+//Sunny
+let fontSunny;
+
 function preload() {
   fontWind = loadFont("Eina04-BoldItalic.ttf");
   fontRain = loadFont("FreeSansBold.ttf");
-  url = `https://cors-anywhere.herokuapp.com/http://api.weatherapi.com/v1/current.json?key=${key}&q=${region}`;
-  data = loadJSON(url);
+  fontSnow = loadFont("AvenirNextLTPro-Demi.otf");
+  fontSunny = loadFont("Warmesty.ttf");
+  //url = `https://cors-anywhere.herokuapp.com/http://api.weatherapi.com/v1/current.json?key=${key}&q=${region}`;
+  //data = loadJSON(url);
 }
 
 function setup() {
   console.log(data);
-  weather = data.current.condition.text;
+  //weather = data.current.condition.text;
+  weather = "Sunny";
   console.log(weather);
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(800, 600);
   centerX = width / 2;
   centerY = height / 2;
   noStroke();
@@ -83,8 +96,8 @@ function setup() {
   count = 0;
   max = 500;
   img = createImage(800, 600);
-  textFont(font);
-  textSize(200);
+  textFont(fontRain);
+  textSize(170);
   fill(0);
   textAlign(CENTER, CENTER);
   text(typedKey, width / 2, height / 2 - 50);
@@ -125,6 +138,21 @@ function setup() {
     cloudX[i] = random(width);
     cloudY[i] = random(0, 50);
     cloudXdir[i] = random(1, 2);
+  }
+
+  //Snow
+  let bounds = fontSnow.textBounds(texts[nextT], 0, 0, 192);
+  let posx = width / 2 - bounds.w / 2;
+  let posy = height / 2 + bounds.h / 2;
+
+  let points = fontSnow.textToPoints(texts[nextT], posx, posy, 192, {
+    sampleFactor: 0.1,
+  });
+
+  for (let i = 0; i < points.length; i++) {
+    let pt = points[i];
+    let vehicle = new Vehicle(pt.x, pt.y);
+    vehicles.push(vehicle);
   }
 }
 
@@ -186,7 +214,7 @@ function draw() {
       }
     }
 
-    background("#333333");
+    background("#B2B9D1");
     for (let i = movers.length - 1; i > 0; i--) {
       let m = movers[i];
       m.update();
@@ -225,6 +253,47 @@ function draw() {
       }
     }
 
+    frame();
+  } else if (weather == "Snow") {
+    background(51);
+
+    for (let i = 0; i < instructions.length; i++) {
+      let v = instructions[i];
+      v.behaviors();
+      v.update();
+      v.show();
+    }
+
+    for (let i = 0; i < vehicles.length; i++) {
+      let v = vehicles[i];
+      v.behaviors();
+      v.update();
+      v.show();
+    }
+  } else if (weather == "Sunny") {
+    backgroundcolor(1);
+
+    //building
+    for (var i = 0; i < 16; i++) {
+      building(bdX[i], bdY[i], 1);
+    }
+    for (var i = 0; i < 18; i++) {
+      building2(bdX2[i], bdY2[i], 1);
+    }
+
+    //cloud
+    for (var i = 0; i < 10; i++) {
+      cloud(cloudX[i], cloudY[i], 2);
+      cloudX[i] += cloudXdir[i];
+      if (cloudX[i] > width - 50) {
+        cloudX[i] = 0;
+      }
+    }
+
+    //sun
+    sun();
+
+    //frame
     frame();
   }
 }
@@ -295,7 +364,7 @@ function backgroundcolor(X) {
 
 function frame() {
   stroke(0);
-  fill(255, 244, 150);
+  fill(77, 77, 77);
   rect(0, height - 50, 800, 50);
   stroke(81, 83, 124);
 }
@@ -307,7 +376,7 @@ function building(X, Y, Z) {
     rect(X, Y, 60, 500, 3);
   } else {
     stroke(0, 70);
-    fill(201, 203, 217, 70);
+    fill(84, 94, 161);
     rect(X, Y, 60, 500, 3);
   }
 }
@@ -318,7 +387,7 @@ function building2(X, Y, Z) {
     rect(X, Y, 80, 500, 3);
   } else {
     stroke(0, 255);
-    fill(52, 0, 106, 255);
+    fill(48, 30, 117);
     rect(X, Y, 80, 500, 3);
   }
 }
@@ -353,6 +422,74 @@ function sun() {
   ellipse(700, 110, 70, 70);
 }
 
+//Snow
+
+function Vehicle(x, y, size) {
+  this.pos = createVector(random(width), random(height));
+  this.target = createVector(x, y);
+  this.vel = p5.Vector.random2D();
+  this.acc = createVector();
+  if (size != null) {
+    this.r = size;
+  } else {
+    this.r = 8;
+  }
+  this.maxspeed = 10;
+  this.maxforce = 1;
+}
+
+Vehicle.prototype.behaviors = function () {
+  let arrive = this.arrive(this.target);
+
+  arrive.mult(1);
+
+  this.applyForce(arrive);
+};
+
+Vehicle.prototype.applyForce = function (f) {
+  this.acc.add(f);
+};
+
+Vehicle.prototype.update = function () {
+  this.pos.add(this.vel);
+  this.vel.add(this.acc);
+  this.acc.mult(0);
+};
+
+Vehicle.prototype.show = function () {
+  stroke(255);
+  strokeWeight(this.r);
+  point(this.pos.x, this.pos.y);
+};
+
+Vehicle.prototype.arrive = function (target) {
+  let desired = p5.Vector.sub(target, this.pos);
+  let d = desired.mag();
+  let speed = this.maxspeed;
+  if (d < 100) {
+    speed = map(d, 0, 100, 0, this.maxspeed);
+  }
+  desired.setMag(speed);
+  let steer = p5.Vector.sub(desired, this.vel);
+  steer.limit(this.maxforce);
+  return steer;
+};
+
+Vehicle.prototype.clone = function () {
+  let v = new Vehicle(this.pos.x, this.pos.y);
+
+  v.pos.x = this.pos.x;
+  v.pos.y = this.pos.y;
+
+  v.vel.x = this.vel.x;
+  v.vel.y = this.vel.y;
+
+  v.acc.x = this.acc.x;
+  v.acc.y = this.acc.y;
+
+  return v;
+};
+
 //main
 
 function keyPressed() {
@@ -366,6 +503,7 @@ function keyPressed() {
   if (keyCode === UP_ARROW) {
     //Update
     state = "Done";
+    texts = [region];
     typedKey = region;
     weather = data.current.condition.text;
     console.log(region, weather);
