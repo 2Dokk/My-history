@@ -197,6 +197,25 @@ function draw() {
         circle(vertici[i].x, vertici[i].y, grandezzaPuntini);
       }
     }
+    background("#B2B9D1");
+    for (let i = movers.length - 1; i > 0; i--) {
+      let m = movers[i];
+      m.update();
+      m.display();
+    }
+
+    //background
+    //RAINY DAY
+
+    //backgroundcolor(2);
+
+    //buildng
+    for (var i = 0; i < 16; i++) {
+      building(bdX[i], bdY[i], 2);
+    }
+    for (var i = 0; i < 18; i++) {
+      building2(bdX2[i], bdY2[i], 2);
+    }
   } else if (weather == "Rain") {
     if (count < max) {
       let i = 0;
@@ -269,6 +288,25 @@ function draw() {
       v.behaviors();
       v.update();
       v.show();
+    }
+    background("#B2B9D1");
+    for (let i = movers.length - 1; i > 0; i--) {
+      let m = movers[i];
+      m.update();
+      m.display();
+    }
+
+    //background
+    //RAINY DAY
+
+    //backgroundcolor(2);
+
+    //buildng
+    for (var i = 0; i < 16; i++) {
+      building(bdX[i], bdY[i], 2);
+    }
+    for (var i = 0; i < 18; i++) {
+      building2(bdX2[i], bdY2[i], 2);
     }
   } else if (weather == "Sunny") {
     backgroundcolor(1);
