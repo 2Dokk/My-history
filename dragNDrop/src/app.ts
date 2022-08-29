@@ -15,13 +15,20 @@ class Project {
 }
 //Project State Management
 
-type Listener = (items: Project[]) => void;
-class ProjectState {
-  private listeners: Listener[] = [];
+type Listener<T> = (items: T[]) => void;
+class State<T> {
+  protected listeners: Listener<T>[] = [];
+  addListener(listenerFn: Listener<T>) {
+    this.listeners.push(listenerFn);
+  }
+}
+class ProjectState extends State<Project> {
   private projects: Project[] = [];
   private static instance: ProjectState;
 
-  private constructor() {}
+  private constructor() {
+    super();
+  }
 
   static getInstance() {
     if (this.instance) {
@@ -29,9 +36,6 @@ class ProjectState {
     }
     this.instance = new ProjectState();
     return this.instance;
-  }
-  addListener(listenerFn: Listener) {
-    this.listeners.push(listenerFn);
   }
 
   addProject(title: string, description: string, numOfPeople: number) {
@@ -161,6 +165,12 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
       this.renderProjects();
     });
   }
+  renderContent() {
+    const listId = `${this.type}-projects-list`;
+    this.element.querySelector("ul")!.id = listId;
+    this.element.querySelector("h2")!.textContent =
+      this.type.toUpperCase() + " PROJECTS";
+  }
   private renderProjects() {
     const listEl = document.getElementById(
       `${this.type}-projects-list`
@@ -171,13 +181,6 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
       listItem.textContent = prjItem.title;
       listEl.appendChild(listItem);
     }
-  }
-
-  renderContent() {
-    const listId = `${this.type}-projects-list`;
-    this.element.querySelector("ul")!.id = listId;
-    this.element.querySelector("h2")!.textContent =
-      this.type.toUpperCase() + " PROJECTS";
   }
 }
 
@@ -203,6 +206,7 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
   configure() {
     this.element.addEventListener("submit", this.submitHandler);
   }
+  renderContent(): void {}
   private gatherUserInput(): [string, string, number] | void {
     const enteredTitle = this.titleInputElement.value;
     const enteredDescription = this.descriptionInputElement.value;
